@@ -23,6 +23,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Add site upgrades
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          page = Path("index.html")
+          html = page.read_text(encoding="utf-8")
+          tag = '<script src="/site-upgrades.js" defer></script>'
+          if tag not in html:
+              html = html.replace("</body>", f"  {tag}\n</body>")
+          page.write_text(html, encoding="utf-8")
+          PY
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
