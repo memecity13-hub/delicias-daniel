@@ -52,18 +52,22 @@
     @media(max-width:850px){.nav{display:none}.hero{min-height:750px}.hero-inner{min-height:750px}.shade{background:linear-gradient(90deg,#200904f5,#2a0b06b8)}.cards,.menu .cards,.price-groups{grid-template-columns:1fr 1fr}.feature{grid-template-columns:1fr}.feature img{height:420px}.steps{grid-template-columns:1fr}.gallery{grid-template-columns:1fr;grid-template-rows:350px 230px}.photo:first-child{grid-row:auto}.ab-shell{padding:28px}.ab-copy,.social-grid,.reviews,.faq,.quote-grid{grid-template-columns:1fr}.ab-copy{gap:30px}.row{grid-template-columns:1fr}}
     @media(max-width:560px){body{padding-bottom:66px}.hero-logo{width:270px}.hero h1{font-size:58px;letter-spacing:-4px}.actions{display:grid}.strip{justify-content:flex-start}.cards,.menu .cards,.price-groups,.extras-grid,.package-grid{grid-template-columns:1fr}section{padding:75px 0}.feature-copy{padding:60px 24px}.ab-shell{padding:15px;border-radius:24px}.ab-topline{align-items:flex-start;flex-direction:column}.ab-video{border-radius:18px}.ab-duration{top:10px;right:10px}.ab-controls{right:10px;bottom:10px}.ab-control{width:42px;padding:0;justify-content:center}.ab-control-label{display:none}.ab-copy{padding:8px 7px 15px}.faq{gap:35px}.form{padding:20px}footer{flex-direction:column;text-align:center}.mobile{position:fixed;z-index:9;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr;padding:8px;background:#180704}.mobile a{display:flex;align-items:center;justify-content:center;height:48px;color:white;font-weight:900}.mobile a:first-child{color:var(--ink);background:var(--gold);border-radius:30px}}
   
-/* DELICIAS_PREMIUM_REAL_FOOD_V3 */
-.dd-real-food{padding:88px 0;background:linear-gradient(180deg,#fffaf0,#fff1d8)}
-.dd-real-food .dd-head{max-width:780px;margin-bottom:30px}
+/* DELICIAS_REAL_KITCHEN_GALLERY_V4 */
+.dd-real-food{padding:92px 0;background:linear-gradient(180deg,#fffaf0,#fff1d8)}
+.dd-real-food .dd-head{max-width:800px;margin-bottom:34px}
 .dd-real-food .dd-kicker{font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#bd2d18}
 .dd-real-food h2{margin:8px 0 14px;font-family:Georgia,serif;font-size:clamp(42px,7vw,74px);line-height:.95;letter-spacing:-2px}
 .dd-real-food .dd-sub{color:#745c52;line-height:1.75}
-.dd-real-photo{position:relative;overflow:hidden;min-height:520px;border-radius:30px;background:#2c0c07;box-shadow:0 28px 75px #571c1029}
-.dd-real-photo img{display:block;width:100%;height:100%;min-height:520px;object-fit:cover}
-.dd-real-photo:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 48%,#210803d9)}
-.dd-photo-labels{position:absolute;z-index:2;left:24px;right:24px;bottom:22px;display:flex;gap:9px;flex-wrap:wrap}
-.dd-photo-labels span{padding:9px 13px;color:white;background:#250904cf;border:1px solid #ffffff32;border-radius:999px;font-size:12px;font-weight:900;backdrop-filter:blur(9px)}
-.dd-order-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:20px}
+.dd-kitchen-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:225px;gap:14px}
+.dd-kitchen-card{position:relative;overflow:hidden;margin:0;border-radius:24px;background:#2c0c07;box-shadow:0 18px 45px #571c101c}
+.dd-kitchen-card:first-child{grid-column:span 2;grid-row:span 2}
+.dd-kitchen-card:nth-child(4),.dd-kitchen-card:nth-child(9){grid-column:span 2}
+.dd-kitchen-card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.dd-kitchen-card:hover img{transform:scale(1.035)}
+.dd-kitchen-card:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,#210803d9)}
+.dd-kitchen-card figcaption{position:absolute;z-index:2;left:16px;right:16px;bottom:14px;color:white;font-size:12px;font-weight:900;line-height:1.35;text-shadow:0 2px 10px #000}
+.dd-gallery-note{margin:18px 0 0;color:#80675d;font-size:12px;line-height:1.6}
+.dd-order-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:28px}
 .dd-feature-order{padding:30px;border-radius:26px;color:white;background:linear-gradient(145deg,#38130c,#781f11);box-shadow:0 24px 60px #4b170f2b}
 .dd-feature-order h3,.dd-policy h3{margin:0 0 11px;font-family:Georgia,serif;font-size:clamp(27px,4vw,36px)}
 .dd-feature-order p{margin:0;color:#ffffffc2;line-height:1.7}
@@ -71,7 +75,13 @@
 .dd-policy{padding:30px;border:1px solid #e5ceb0;border-radius:26px;background:#fffdf8;box-shadow:0 20px 50px #6b2c1010}
 .dd-policy p{margin:0;color:#6c554c;line-height:1.72}
 .dd-policy strong{color:#48170e}
-@media(max-width:760px){.dd-real-food{padding:64px 0}.dd-real-photo,.dd-real-photo img{min-height:420px}.dd-order-grid{grid-template-columns:1fr}}
+.ab-promo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}
+.ab-promo-point{padding:15px;border:1px solid #8cdfff30;border-radius:16px;background:linear-gradient(145deg,#ffffff0c,#7134c318)}
+.ab-promo-point strong{display:block;margin-bottom:5px;color:#f6efff;font-size:13px}
+.ab-promo-point span{color:#a99bb9;font-size:11px;line-height:1.5}
+@media(max-width:850px){.dd-kitchen-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:210px}.dd-kitchen-card:first-child{grid-column:span 2}.dd-kitchen-card:nth-child(4),.dd-kitchen-card:nth-child(9){grid-column:span 1}.ab-promo-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.dd-real-food{padding:64px 0}.dd-order-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.dd-kitchen-grid{gap:9px;grid-auto-rows:170px}.dd-kitchen-card{border-radius:17px}.dd-kitchen-card:first-child{grid-row:span 2}.dd-kitchen-card figcaption{left:11px;right:11px;bottom:10px;font-size:10px}}
 
 </style>
 </head>
@@ -196,8 +206,13 @@
           <div><strong class="ab-wordmark">ABARCALYST</strong><span class="ab-tagline">ONE WORLD. TRUSTED COMMERCE.</span></div>
           <div>
             <p class="kicker">A marketplace in development</p>
-            <h2 id="abarcalyst-title">Trust-first commerce for the real world.</h2>
-            <p>ABARCALYST is a next-generation marketplace in development for buying, selling, renting, hiring, and finding services—designed around commitment, proof, and safer real-world coordination.</p>
+            <h2 id="abarcalyst-title">A new world of trusted commerce is taking shape.</h2>
+            <p>ABARCALYST is being built for people to buy, sell, rent, hire, find services, and coordinate real-world opportunities with commitment, proof, and greater confidence.</p>
+            <div class="ab-promo-grid" aria-label="ABARCALYST vision">
+              <div class="ab-promo-point"><strong>One place to participate</strong><span>Commerce, services, rentals, hiring, and real-world tasks.</span></div>
+              <div class="ab-promo-point"><strong>Trust designed in</strong><span>Built around clearer commitments, proof, and coordination.</span></div>
+              <div class="ab-promo-point"><strong>Early access preview</strong><span>See the vision now while the marketplace is under construction.</span></div>
+            </div>
             <p>Bladimir Abarca and Fatima Trinidad Abarca built ABARCALYST to help people turn trust into opportunity.</p>
             <div class="ab-founder-links" aria-label="ABARCALYST founder profiles on X">
               <a href="https://x.com/BladimirAb24006" target="_blank" rel="noopener noreferrer" aria-label="Bladimir Abarca on X"><span class="x-mark" aria-hidden="true">𝕏</span> Bladimir @BladimirAb24006</a>
@@ -233,18 +248,32 @@
 <section class="dd-real-food" id="real-food-gallery" aria-labelledby="real-food-title">
   <div class="wrap">
     <div class="dd-head">
-      <div class="dd-kicker">Real food. Real catering.</div>
+      <div class="dd-kicker">Real food. Real kitchen.</div>
       <h2 id="real-food-title">Made fresh for your celebration.</h2>
-      <p class="dd-sub">See authentic Delicias Daniel preparation and catering trays made for birthdays, graduations, family celebrations, offices and special events throughout Van Nuys and the San Fernando Valley.</p>
+      <p class="dd-sub">A real look inside Delicias Daniel—from fresh ingredients and house-made sauces to hand-prepared rolled tacos, rice, ceviche, and catering trays.</p>
     </div>
-    <div class="dd-real-photo">
-      <img src="" data-b64="assets/hero-catering.webp.b64" alt="Authentic Delicias Daniel catering spread prepared for a celebration" loading="lazy">
-      <div class="dd-photo-labels"><span>Fried tacos</span><span>Red & green enchiladas</span><span>Fresh rice</span><span>Ceviche</span><span>House-made salsa</span></div>
+    <div class="dd-kitchen-grid">
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12374.webp.b64" alt="Red and green catering trays, ready for the next step" loading="lazy" decoding="async"><figcaption>Red and green catering trays, ready for the next step</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12373.webp.b64" alt="Golden fried rolled tacos" loading="lazy" decoding="async"><figcaption>Golden fried rolled tacos</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12370.webp.b64" alt="A full pot of freshly prepared golden rice" loading="lazy" decoding="async"><figcaption>A full pot of freshly prepared golden rice</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12372.webp.b64" alt="Fresh, colorful ceviche prepared in a catering tray" loading="lazy" decoding="async"><figcaption>Fresh, colorful ceviche prepared in a catering tray</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12371.webp.b64" alt="Ceviche mixed fresh in the Delicias Daniel kitchen" loading="lazy" decoding="async"><figcaption>Ceviche mixed fresh in the Delicias Daniel kitchen</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12375.webp.b64" alt="House-made red salsa" loading="lazy" decoding="async"><figcaption>House-made red salsa</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12387.webp.b64" alt="Rolled tacos prepared by hand" loading="lazy" decoding="async"><figcaption>Rolled tacos prepared by hand</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12389.webp.b64" alt="Catering trays lined and ready for cooking" loading="lazy" decoding="async"><figcaption>Catering trays lined and ready for cooking</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12385.webp.b64" alt="Fresh-cut vegetables for a custom order" loading="lazy" decoding="async"><figcaption>Fresh-cut vegetables for a custom order</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12388.webp.b64" alt="Colorful vegetable preparation" loading="lazy" decoding="async"><figcaption>Colorful vegetable preparation</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12379.webp.b64" alt="Fresh tomatoes ready for the kitchen" loading="lazy" decoding="async"><figcaption>Fresh tomatoes ready for the kitchen</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12380.webp.b64" alt="Onion preparation for house recipes" loading="lazy" decoding="async"><figcaption>Onion preparation for house recipes</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12390.webp.b64" alt="Two house-made sauces" loading="lazy" decoding="async"><figcaption>Two house-made sauces</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12391.webp.b64" alt="Freshly prepared house sauce" loading="lazy" decoding="async"><figcaption>Freshly prepared house sauce</figcaption></figure>
+      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12392.webp.b64" alt="Rich red house salsa" loading="lazy" decoding="async"><figcaption>Rich red house salsa</figcaption></figure>
     </div>
+    <p class="dd-gallery-note">Authentic Delicias Daniel kitchen photos. Menu selections and presentation may vary by custom order.</p>
     <div class="dd-order-grid">
       <div class="dd-feature-order">
-        <h3>Fried Tacos & Custom Orders</h3>
-        <p>Freshly prepared fried rolled tacos are available for catering. Fillings, portions, sides and complete packages are customized for your guest count and event needs. Call for current availability and a personalized quote.</p>
+        <h3>Fresh Food & Custom Orders</h3>
+        <p>Tell us your event date, guest count, and food ideas. Portions, available dishes, sides, and complete packages are customized for your celebration and confirmed in your written quote.</p>
         <a class="dd-call" href="tel:+18186908693">☎ Call (818) 690-8693</a>
       </div>
       <div class="dd-policy">
@@ -379,6 +408,12 @@
     });
     Object.assign(hy,{
       "Salvadoran tamales — 1 dozen":"Սալվադորական տամալես — 1 տասնյակ","Traditional Salvadoran-style tamales. Available fillings are confirmed when ordering.":"Ավանդական սալվադորական տամալես։ Հասանելի միջուկները հաստատվում են պատվերի ժամանակ։","Mexican tamales — 1 dozen":"Մեքսիկական տամալես — 1 տասնյակ","Traditional Mexican-style tamales. Available fillings are confirmed when ordering.":"Ավանդական մեքսիկական տամալես։ Հասանելի միջուկները հաստատվում են պատվերի ժամանակ։","Garden salad tray — serves 20":"Կանաչ աղցանի սկուտեղ — 20 հոգու համար","Fresh party-size garden salad prepared for approximately 20 guests.":"Թարմ, խնջույքի չափաբաժնով կանաչ աղցան՝ մոտ 20 հյուրի համար։","Churros — 20":"Չուրոս — 20","Classic cinnamon-sugar churros arranged for convenient party serving.":"Դարչինով և շաքարով դասական չուրոս՝ խնջույքին հարմար մատուցման համար։","20 junior hamburgers, a party tray of fries, condiments on the side, and one gallon of lemonade.":"20 փոքր համբուրգեր, մեկ սկուտեղ ֆրի, համեմունքներ կողքին և մեկ գալոն լիմոնադ։"
+    });
+    Object.assign(es,{
+      "Real food. Real kitchen.":"Comida real. Cocina real.","A real look inside Delicias Daniel—from fresh ingredients and house-made sauces to hand-prepared rolled tacos, rice, ceviche, and catering trays.":"Una mirada real a la cocina de Delicias Daniel: ingredientes frescos, salsas caseras, tacos enrollados a mano, arroz, ceviche y bandejas para eventos.","Authentic Delicias Daniel kitchen photos. Menu selections and presentation may vary by custom order.":"Fotos auténticas de la cocina de Delicias Daniel. Las opciones y la presentación pueden variar según el pedido.","Fresh Food & Custom Orders":"Comida fresca y pedidos personalizados","Tell us your event date, guest count, and food ideas. Portions, available dishes, sides, and complete packages are customized for your celebration and confirmed in your written quote.":"Díganos la fecha, cantidad de invitados e ideas de comida. Las porciones, platos, acompañamientos y paquetes se personalizan y se confirman por escrito.","A new world of trusted commerce is taking shape.":"Un nuevo mundo de comercio confiable está tomando forma.","ABARCALYST is being built for people to buy, sell, rent, hire, find services, and coordinate real-world opportunities with commitment, proof, and greater confidence.":"ABARCALYST se está creando para comprar, vender, alquilar, contratar, encontrar servicios y coordinar oportunidades reales con compromiso, pruebas y mayor confianza.","One place to participate":"Un lugar para participar","Commerce, services, rentals, hiring, and real-world tasks.":"Comercio, servicios, alquileres, contratación y tareas reales.","Trust designed in":"Confianza desde el diseño","Built around clearer commitments, proof, and coordination.":"Creado alrededor de compromisos, pruebas y coordinación más claros.","Early access preview":"Vista previa de acceso anticipado","See the vision now while the marketplace is under construction.":"Conozca la visión mientras el mercado está en construcción."
+    });
+    Object.assign(hy,{
+      "Real food. Real kitchen.":"Իրական սնունդ։ Իրական խոհանոց։","A real look inside Delicias Daniel—from fresh ingredients and house-made sauces to hand-prepared rolled tacos, rice, ceviche, and catering trays.":"Իրական հայացք Delicias Daniel-ի խոհանոցին՝ թարմ բաղադրիչներից և տնական սոուսներից մինչև ձեռքով պատրաստված ռոլլ-տակոներ, բրինձ, սևիչե և քեյթրինգի սկուտեղներ։","Authentic Delicias Daniel kitchen photos. Menu selections and presentation may vary by custom order.":"Delicias Daniel-ի խոհանոցի իրական լուսանկարներ։ Մենյուն և մատուցումը կարող են տարբեր լինել ըստ պատվերի։","Fresh Food & Custom Orders":"Թարմ սնունդ և անհատական պատվերներ","Tell us your event date, guest count, and food ideas. Portions, available dishes, sides, and complete packages are customized for your celebration and confirmed in your written quote.":"Նշեք միջոցառման ամսաթիվը, հյուրերի քանակը և սննդի գաղափարները։ Չափաբաժինները, ուտեստները, խավարտները և փաթեթները կհարմարեցվեն ու կհաստատվեն գրավոր գնառաջարկում։","A new world of trusted commerce is taking shape.":"Վստահելի առևտրի նոր աշխարհ է ձևավորվում։","ABARCALYST is being built for people to buy, sell, rent, hire, find services, and coordinate real-world opportunities with commitment, proof, and greater confidence.":"ABARCALYST-ը կառուցվում է, որպեսզի մարդիկ գնեն, վաճառեն, վարձակալեն, աշխատանքի ընդունեն, գտնեն ծառայություններ և իրական հնարավորություններ համակարգեն՝ պարտավորությամբ, ապացույցով և ավելի մեծ վստահությամբ։","One place to participate":"Մեկ վայր մասնակցելու համար","Commerce, services, rentals, hiring, and real-world tasks.":"Առևտուր, ծառայություններ, վարձակալություն, աշխատանքի ընդունում և իրական առաջադրանքներ։","Trust designed in":"Վստահությունը՝ նախագծման հիմքում","Built around clearer commitments, proof, and coordination.":"Կառուցված է ավելի հստակ պարտավորությունների, ապացույցի և համակարգման շուրջ։","Early access preview":"Վաղ հասանելիության նախադիտում","See the vision now while the marketplace is under construction.":"Տեսեք գաղափարը հիմա, մինչ շուկան կառուցման փուլում է։"
     });
     const placeholderEs={"Name":"Nombre","Birthday, office lunch…":"Cumpleaños, comida de oficina…","About 50":"Aproximadamente 50","Where is the event?":"¿Dónde será el evento?","Food ideas, serving time, questions…":"Ideas de comida, hora, preguntas…"};
     const placeholderHy={"Name":"Անուն","Birthday, office lunch…":"Ծննդյան տոն, գրասենյակային ճաշ…","About 50":"Մոտ 50","Where is the event?":"Որտե՞ղ է միջոցառումը։","Food ideas, serving time, questions…":"Սննդի գաղափարներ, ժամ, հարցեր…"};
