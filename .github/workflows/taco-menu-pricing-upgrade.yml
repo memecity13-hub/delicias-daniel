@@ -1,0 +1,106 @@
+name: Taco Menu Pricing Upgrade
+on:
+  push:
+    paths:
+      - .github/workflows/taco-menu-pricing-upgrade.yml
+permissions:
+  contents: write
+jobs:
+  update-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add professional taco chooser and confirmed prices
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          html=p.read_text(encoding='utf-8')
+          marker='DELICIAS_TACO_CHOOSER_V1'
+          if marker not in html:
+            css=r'''
+/* DELICIAS_TACO_CHOOSER_V1 */
+.taco-studio{padding:96px 0;background:linear-gradient(180deg,#250b06,#4a120a);color:#fff}
+.taco-studio .intro{max-width:790px}.taco-studio .eyeline{color:#ffc83d;font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+.taco-studio h2{margin:9px 0 16px;font-family:Georgia,serif;font-size:clamp(44px,7vw,76px);line-height:.95;letter-spacing:-3px}
+.taco-studio .intro p{color:#ffffffb8;line-height:1.75}
+.taco-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+.taco-choice{padding:30px;border:1px solid #ffffff24;border-radius:28px;background:linear-gradient(145deg,#ffffff12,#ffffff07);box-shadow:0 25px 70px #0005}
+.taco-choice.featured{border-color:#ffc83d99;background:linear-gradient(145deg,#7b2012,#3b0d07)}
+.taco-choice .tag{display:inline-flex;padding:7px 11px;border-radius:999px;background:#ffc83d;color:#351006;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.taco-choice h3{margin:18px 0 8px;font-family:Georgia,serif;font-size:34px}.taco-choice .range{display:block;margin:14px 0;color:#ffc83d;font-size:25px;font-weight:900}
+.taco-choice p,.taco-choice li{color:#ffffffbd;line-height:1.65}.taco-choice ul{padding-left:19px}
+.protein-builder{margin-top:22px;padding:27px;border-radius:26px;color:#351006;background:#fff5df}
+.protein-builder h3{margin:0 0 8px;font-family:Georgia,serif;font-size:30px}.protein-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:17px}
+.protein{padding:17px;border:1px solid #ead8bd;border-radius:18px;background:#fff}.protein b{display:block}.protein span{display:block;margin-top:6px;color:#7c6258;font-size:12px;line-height:1.45}
+.confirmed-prices{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:22px}.confirmed-item{padding:21px;border:1px solid #ffffff20;border-radius:20px;background:#ffffff0b}.confirmed-item b{display:block;font-size:16px}.confirmed-item strong{display:block;margin-top:8px;color:#ffc83d;font-size:24px}
+.taco-note{margin-top:20px;padding:18px 20px;border-left:4px solid #ffc83d;background:#ffffff0c;color:#ffffffc2;line-height:1.65}
+.taco-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:25px}.taco-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 23px;border-radius:999px;font-weight:900}.taco-actions .call{background:#ffc83d;color:#351006}.taco-actions .text{border:1px solid #ffffff44;color:#fff}
+@media(max-width:850px){.taco-choice-grid{grid-template-columns:1fr}.protein-grid{grid-template-columns:1fr 1fr}.confirmed-prices{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.taco-studio{padding:70px 0}.protein-grid,.confirmed-prices{grid-template-columns:1fr}}
+'''
+            html=html.replace('</style>',css+'\n</style>',1)
+            section=r'''
+<section class="taco-studio" id="taco-options" aria-labelledby="taco-title">
+  <div class="wrap">
+    <div class="intro">
+      <div class="eyeline">Build your catering order</div>
+      <h2 id="taco-title">Choose your taco style.</h2>
+      <p>Start with regular street tacos or crispy fried rolled tacos, then choose fillings, toppings and sides. Every package is adjusted to your guest count, service style and event needs.</p>
+    </div>
+    <div class="taco-choice-grid">
+      <article class="taco-choice">
+        <span class="tag">Classic & flexible</span>
+        <h3>Regular Street Tacos</h3>
+        <span class="range">Planning range: $16–$20 per guest</span>
+        <p>Warm corn tortillas served with your selected proteins and traditional toppings. This is generally the more affordable option.</p>
+        <ul><li>Choose 2–3 fillings</li><li>Onion, cilantro, lime and salsa</li><li>Rice and beans available</li><li>Great for larger guest counts</li></ul>
+      </article>
+      <article class="taco-choice featured">
+        <span class="tag">More preparation</span>
+        <h3>Fried Rolled Tacos</h3>
+        <span class="range">Planning range: $18–$24 per guest</span>
+        <p>Hand-filled, rolled and fried until crisp. Fried tacos usually cost more because they require additional preparation and cooking time.</p>
+        <ul><li>Chicken, potato, cheese or custom filling</li><li>Lettuce, crema, cheese and salsa options</li><li>Available as trays or complete packages</li><li>Best ordered in advance</li></ul>
+      </article>
+    </div>
+    <div class="protein-builder">
+      <h3>Choose your fillings & ingredients</h3>
+      <p>Final pricing depends on protein selection, quantity and included sides.</p>
+      <div class="protein-grid">
+        <div class="protein"><b>Chicken or potato</b><span>Usually included in the base range.</span></div>
+        <div class="protein"><b>Al pastor or carnitas</b><span>Typical upgrade: +$1–$2 per guest.</span></div>
+        <div class="protein"><b>Carne asada</b><span>Typical upgrade: +$2–$3 per guest.</span></div>
+        <div class="protein"><b>Shrimp or fish</b><span>Premium upgrade: +$4–$6 per guest.</span></div>
+      </div>
+    </div>
+    <div class="confirmed-prices" aria-label="Confirmed tray prices">
+      <div class="confirmed-item"><b>Fish ceviche tray</b><strong>$150</strong></div>
+      <div class="confirmed-item"><b>Mexican rice tray</b><strong>$35</strong></div>
+      <div class="confirmed-item"><b>House salsa container</b><strong>$8</strong></div>
+      <div class="confirmed-item"><b>Medium vegetable tray</b><strong>$45</strong></div>
+      <div class="confirmed-item"><b>Cheese enchiladas</b><strong>$35</strong></div>
+      <div class="confirmed-item"><b>Chicken enchiladas</b><strong>$45</strong></div>
+    </div>
+    <div class="taco-note"><strong>Custom-order policy:</strong> A deposit is required to reserve the preparation date. Once preparation has begun, orders cannot be canceled and deposits are non-refundable. Planning ranges are estimates; the final quote is confirmed by phone based on guest count, ingredients, delivery and service needs.</div>
+    <div class="taco-actions"><a class="call" href="tel:+18186908693">☎ Call for a custom order</a><a class="text" href="sms:+18186908693">✉ Text your guest count</a></div>
+  </div>
+</section>
+'''
+            anchor=re.search(r'<section class="dd-real-food"',html)
+            if anchor:
+              html=html[:anchor.start()]+section+'\n'+html[anchor.start():]
+            elif re.search(r'<footer\b',html,re.I):
+              html=re.sub(r'(<footer\b)',section+r'\n\1',html,count=1,flags=re.I)
+            else:
+              html=html.replace('</body>',section+'\n</body>',1)
+          p.write_text(html,encoding='utf-8')
+          PY
+      - name: Commit taco menu upgrade
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Add taco chooser and confirmed catering prices" || exit 0
+          git push
