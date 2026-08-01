@@ -1,0 +1,18 @@
+{
+  "name": "Delicias Daniel Catering",
+  "short_name": "Delicias Daniel",
+  "description": "Mexican, Salvadoran, and American catering for celebrations in Van Nuys and nearby communities.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fff7e8",
+  "theme_color": "#250b06",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
