@@ -395,6 +395,15 @@
       updateVideoControls();
     }));
   </script>
+  <style>body > .abarcalyst-banner{display:none!important}</style>
+  <script>
+    (() => {
+      const removeDuplicatePartnerBanner = () =>
+        document.querySelectorAll(".abarcalyst-banner").forEach((banner) => banner.remove());
+      removeDuplicatePartnerBanner();
+      new MutationObserver(removeDuplicatePartnerBanner).observe(document.body, { childList: true, subtree: true });
+    })();
+  </script>
 </body>
 </html>
 <!-- Deployment refresh: cinematic ABARCALYST showcase -->
