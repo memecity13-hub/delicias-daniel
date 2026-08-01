@@ -1,0 +1,90 @@
+name: Premium Real Food Update
+on:
+  push:
+    paths:
+      - .github/workflows/premium-real-food-update.yml
+permissions:
+  contents: write
+jobs:
+  update-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upgrade real food gallery and order policy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          html = p.read_text(encoding='utf-8')
+
+          # Remove only the large ABARCALYST visit button while preserving partner credit.
+          html = re.sub(r'<a\b[^>]*>\s*Visit\s+ABARCALYST\s*(?:→|&rarr;)?\s*</a>', '', html, flags=re.I|re.S)
+
+          marker = 'DELICIAS_PREMIUM_REAL_FOOD_V3'
+          if marker not in html:
+              css = r'''
+          /* DELICIAS_PREMIUM_REAL_FOOD_V3 */
+          .dd-real-food{padding:88px 0;background:linear-gradient(180deg,#fffaf0,#fff1d8)}
+          .dd-real-food .dd-head{max-width:780px;margin-bottom:30px}
+          .dd-real-food .dd-kicker{font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#bd2d18}
+          .dd-real-food h2{margin:8px 0 14px;font-family:Georgia,serif;font-size:clamp(42px,7vw,74px);line-height:.95;letter-spacing:-2px}
+          .dd-real-food .dd-sub{color:#745c52;line-height:1.75}
+          .dd-real-photo{position:relative;overflow:hidden;min-height:520px;border-radius:30px;background:#2c0c07;box-shadow:0 28px 75px #571c1029}
+          .dd-real-photo img{display:block;width:100%;height:100%;min-height:520px;object-fit:cover}
+          .dd-real-photo:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 48%,#210803d9)}
+          .dd-photo-labels{position:absolute;z-index:2;left:24px;right:24px;bottom:22px;display:flex;gap:9px;flex-wrap:wrap}
+          .dd-photo-labels span{padding:9px 13px;color:white;background:#250904cf;border:1px solid #ffffff32;border-radius:999px;font-size:12px;font-weight:900;backdrop-filter:blur(9px)}
+          .dd-order-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:20px}
+          .dd-feature-order{padding:30px;border-radius:26px;color:white;background:linear-gradient(145deg,#38130c,#781f11);box-shadow:0 24px 60px #4b170f2b}
+          .dd-feature-order h3,.dd-policy h3{margin:0 0 11px;font-family:Georgia,serif;font-size:clamp(27px,4vw,36px)}
+          .dd-feature-order p{margin:0;color:#ffffffc2;line-height:1.7}
+          .dd-call{display:inline-flex;align-items:center;justify-content:center;min-height:52px;margin-top:22px;padding:0 23px;border-radius:999px;background:#ffc83d;color:#351006;font-weight:900}
+          .dd-policy{padding:30px;border:1px solid #e5ceb0;border-radius:26px;background:#fffdf8;box-shadow:0 20px 50px #6b2c1010}
+          .dd-policy p{margin:0;color:#6c554c;line-height:1.72}
+          .dd-policy strong{color:#48170e}
+          @media(max-width:760px){.dd-real-food{padding:64px 0}.dd-real-photo,.dd-real-photo img{min-height:420px}.dd-order-grid{grid-template-columns:1fr}}
+          '''
+              html = html.replace('</style>', css + '\n</style>', 1)
+
+              section = r'''
+          <section class="dd-real-food" id="real-food-gallery" aria-labelledby="real-food-title">
+            <div class="wrap">
+              <div class="dd-head">
+                <div class="dd-kicker">Real food. Real catering.</div>
+                <h2 id="real-food-title">Made fresh for your celebration.</h2>
+                <p class="dd-sub">See authentic Delicias Daniel preparation and catering trays made for birthdays, graduations, family celebrations, offices and special events throughout Van Nuys and the San Fernando Valley.</p>
+              </div>
+              <div class="dd-real-photo">
+                <img src="assets/celebration-table.webp?v=20260801-2" alt="Authentic Delicias Daniel catering food including fried tacos, enchiladas, rice, ceviche and fresh ingredients" loading="lazy">
+                <div class="dd-photo-labels"><span>Fried tacos</span><span>Red & green enchiladas</span><span>Fresh rice</span><span>Ceviche</span><span>House-made salsa</span></div>
+              </div>
+              <div class="dd-order-grid">
+                <div class="dd-feature-order">
+                  <h3>Fried Tacos & Custom Orders</h3>
+                  <p>Freshly prepared fried rolled tacos are available for catering. Fillings, portions, sides and complete packages are customized for your guest count and event needs. Call for current availability and a personalized quote.</p>
+                  <a class="dd-call" href="tel:+18186908693">☎ Call (818) 690-8693</a>
+                </div>
+                <div class="dd-policy">
+                  <h3>Deposit & Cancellation Policy</h3>
+                  <p><strong>A deposit is required to confirm every custom order and reserve the preparation date.</strong> Once preparation has begun, the order cannot be canceled and the deposit is non-refundable. Please request changes as early as possible; changes are subject to availability and may affect the final price.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          '''
+              if re.search(r'<footer\b', html, flags=re.I):
+                  html = re.sub(r'(<footer\b)', section + r'\n\1', html, count=1, flags=re.I)
+              else:
+                  html = html.replace('</body>', section + '\n</body>', 1)
+
+          p.write_text(html, encoding='utf-8')
+          PY
+      - name: Commit website upgrade
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Upgrade real food gallery and custom order policy" || exit 0
+          git push
