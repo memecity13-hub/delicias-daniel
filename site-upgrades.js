@@ -129,14 +129,8 @@
     const featureCopy = document.querySelector(".feature-copy p:not(.eyebrow)");
     if (featureCopy) featureCopy.textContent = data.feature;
 
-    let banner = document.querySelector(".abarcalyst-banner");
-    if (!banner) {
-      banner = document.createElement("aside");
-      banner.className = "abarcalyst-banner";
-      const footer = document.querySelector("footer");
-      if (footer) footer.before(banner);
-    }
-    banner.innerHTML = `<div class="abarcalyst-copy"><small>${data.adLabel}</small><strong>${data.adText}</strong></div><a class="abarcalyst-button" href="https://abarcalyst.com" target="_blank" rel="noopener">${data.adButton} →</a>`;
+    // Keep the primary cinematic ABARCALYST feature; remove only the small footer duplicate.
+    document.querySelector(".abarcalyst-banner")?.remove();
   };
 
   const activeLanguage = () => document.querySelector("[data-lang].active")?.dataset.lang || "en";
