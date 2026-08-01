@@ -1,0 +1,25 @@
+name: Apply Real Kitchen Gallery
+on:
+  push:
+    paths:
+      - .github/workflows/apply-kitchen-gallery.yml
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode and apply website update
+        run: |
+          mkdir -p /tmp/kitchen_payload
+          base64 -d tools/kitchen-update-payload.b64 > /tmp/kitchen_payload.tar.gz
+          tar -xzf /tmp/kitchen_payload.tar.gz -C /tmp/kitchen_payload
+          python /tmp/kitchen_payload/apply.py
+      - name: Commit real kitchen gallery
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/kitchen-story.webp.b64
+          git commit -m "Add real behind-the-kitchen gallery" || exit 0
+          git push
