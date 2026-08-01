@@ -1,4 +1,5 @@
 name: Apply Real Kitchen Gallery
+# rerun after real-photo bundle upload
 on:
   push:
     paths:
