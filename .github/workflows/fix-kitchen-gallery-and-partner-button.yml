@@ -1,0 +1,78 @@
+name: Fix Kitchen Gallery and Partner Button
+on:
+  push:
+    paths:
+      - .github/workflows/fix-kitchen-gallery-and-partner-button.yml
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch homepage
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('index.html')
+          html = path.read_text()
+
+          # Remove only the large Partner Spotlight CTA button.
+          html = re.sub(
+              r'<a\b[^>]*>\s*Visit\s+ABARCALYST\s*(?:→|&rarr;|&#8594;)?\s*</a>',
+              '',
+              html,
+              flags=re.I | re.S,
+          )
+
+          kitchen_section = '''
+    <section class="real-kitchen" id="kitchen"><div class="wrap">
+      <div class="heading"><p class="kicker">Behind the kitchen</p><h2>Real food. Prepared with care.</h2><p class="sub">A genuine look at Delicias Daniel—from fresh ingredients and careful preparation to catering trays ready for your celebration.</p></div>
+      <div class="kitchen-story">
+        <figure class="kitchen-main"><img src="" data-b64="assets/celebration-table.webp.b64" alt="Real Delicias Daniel food preparation and catering trays"><figcaption>Fresh ingredients → preparation → finished catering trays</figcaption></figure>
+        <div class="kitchen-steps" aria-label="Delicias Daniel kitchen process">
+          <article><b>1</b><strong>Fresh ingredients</strong><span>Peppers, tomatoes, onions, herbs and vegetables prepared in the kitchen.</span></article>
+          <article><b>2</b><strong>Made in the kitchen</strong><span>Rice, salsas, ceviche and party favorites prepared in practical catering quantities.</span></article>
+          <article><b>3</b><strong>Celebration ready</strong><span>Rolled tacos and red and green enchilada trays prepared for events.</span></article>
+        </div>
+      </div>
+    </div></section>
+'''
+
+          # Replace the old generic gallery when present.
+          old_gallery = re.compile(
+              r'<section><div class="wrap"><div class="heading"><p class="kicker">Food that starts the celebration</p>.*?</section>',
+              re.I | re.S,
+          )
+          if old_gallery.search(html):
+              html = old_gallery.sub(kitchen_section.strip(), html, count=1)
+          elif 'id="kitchen"' not in html:
+              # Insert before Partner Spotlight, ABARCALYST section, social section, or quote form.
+              markers = [
+                  '<section class="partner-spotlight"',
+                  '<section class="abarcalyst-ad"',
+                  '<section class="social"',
+                  '<section class="quote"',
+              ]
+              for marker in markers:
+                  if marker in html:
+                      html = html.replace(marker, kitchen_section + '\n    ' + marker, 1)
+                      break
+
+          css = '''
+    .real-kitchen{background:#fff8ec}.kitchen-story{display:grid;grid-template-columns:1.35fr .65fr;gap:20px;margin-top:42px}.kitchen-main{position:relative;overflow:hidden;min-height:590px;margin:0;border-radius:28px;background:#250b06;box-shadow:0 22px 65px #6b2c1022}.kitchen-main img{display:block;width:100%;height:100%;min-height:590px;object-fit:cover}.kitchen-main:after{content:"";position:absolute;inset:55% 0 0;background:linear-gradient(transparent,#210903e8)}.kitchen-main figcaption{position:absolute;z-index:1;left:25px;right:25px;bottom:23px;color:white;font-size:17px;font-weight:900}.kitchen-steps{display:grid;gap:14px}.kitchen-steps article{display:grid;grid-template-columns:48px 1fr;align-content:center;column-gap:13px;padding:23px;background:white;border:1px solid #eadbc7;border-radius:23px;box-shadow:0 16px 44px #6b2c1012}.kitchen-steps b{grid-row:1/3;display:grid;width:48px;height:48px;place-items:center;color:white;background:var(--red);border-radius:50%}.kitchen-steps strong{font-size:18px}.kitchen-steps span{margin-top:6px;color:#806860;font-size:13px;line-height:1.5}@media(max-width:850px){.kitchen-story{grid-template-columns:1fr}.kitchen-main,.kitchen-main img{min-height:460px}}@media(max-width:560px){.kitchen-main,.kitchen-main img{min-height:380px}.kitchen-main figcaption{font-size:14px}.kitchen-steps article{padding:19px}}
+'''
+          if '.real-kitchen{' not in html:
+              html = html.replace('  </style>', css + '  </style>', 1)
+
+          path.write_text(html)
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "4189826+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Show real kitchen photos and remove partner CTA" || exit 0
+          git push
