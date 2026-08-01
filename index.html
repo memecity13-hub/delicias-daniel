@@ -108,6 +108,27 @@
 @media(max-width:760px){.dd-real-food{padding:64px 0}.dd-order-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.dd-kitchen-grid{gap:9px;grid-auto-rows:170px}.dd-kitchen-card{border-radius:17px}.dd-kitchen-card:first-child{grid-row:span 2}.dd-kitchen-card figcaption{left:11px;right:11px;bottom:10px;font-size:10px}}
 
+
+/* DELICIAS_CEVICHE_UPDATE_V2 */
+/* DELICIAS_TACO_CHOOSER_V1 superseded: publish verified family pricing only */
+.ceviche-feature{padding:100px 0;color:#fff;background:linear-gradient(145deg,#250b06,#671b0f)}
+.ceviche-layout{display:grid;grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr);gap:52px;align-items:center}
+.ceviche-video-wrap{position:relative;max-width:430px;margin:auto;overflow:hidden;aspect-ratio:9/16;border:1px solid #ffffff2b;border-radius:32px;background:#100402;box-shadow:0 35px 80px #12040099}
+.ceviche-video-wrap video{display:block;width:100%;height:100%;object-fit:cover}
+.ceviche-badge{position:absolute;z-index:2;top:18px;left:18px;padding:8px 12px;color:#3b1007;background:#ffc83d;border-radius:999px;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.ceviche-copy .kicker{color:#ffc83d}.ceviche-copy h2{max-width:720px;margin:8px 0 18px}.ceviche-copy>.sub{color:#ffffffbd;max-width:690px}
+.ceviche-still{margin:27px 0 22px;overflow:hidden;border:1px solid #ffffff25;border-radius:24px;background:#180603}
+.ceviche-still img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.ceviche-still figcaption{padding:11px 15px;color:#ffffffa8;font-size:11px}
+.ceviche-prices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ceviche-price{padding:17px;background:#ffffff0d;border:1px solid #ffffff20;border-radius:17px}
+.ceviche-price span{display:block;color:#ffffffc5;font-size:12px;line-height:1.35}.ceviche-price strong{display:block;margin-top:7px;color:#ffc83d;font-size:22px}
+.ceviche-note{margin:17px 0 0;color:#ffffff9e;font-size:12px;line-height:1.55}
+.ceviche-feature .btn{margin-top:24px;color:#3b1007;background:#ffc83d}
+@media(max-width:860px){.ceviche-layout{grid-template-columns:1fr;gap:36px}.ceviche-video-wrap{width:min(100%,390px)}}
+@media(max-width:560px){.ceviche-feature{padding:72px 0}.ceviche-prices{grid-template-columns:1fr 1fr}.ceviche-copy h2{letter-spacing:-2px}.ceviche-still{margin-top:22px}}
+@media(max-width:360px){.ceviche-prices{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -215,7 +236,34 @@
 
     <section><div class="wrap"><div class="heading"><p class="kicker">Food that starts the celebration</p><h2>Made to gather around.</h2></div><div class="gallery"><figure class="photo"><img src="" data-b64="assets/hero-catering.webp.b64" alt="Mexican and Salvadoran catering spread"><span>Catering spread</span></figure><figure class="photo"><img src="" data-b64="assets/taco-platter.webp.b64" alt="Taco catering platter"><span>Taco inspiration</span></figure></div></div></section>
 
-    <section class="abarcalyst-ad" aria-labelledby="abarcalyst-title"><div class="wrap">
+    
+<section class="ceviche-feature" id="ceviche-tray" aria-labelledby="ceviche-title">
+  <div class="wrap ceviche-layout">
+    <div class="ceviche-video-wrap">
+      <span class="ceviche-badge">Real Delicias Daniel kitchen</span>
+      <video controls muted loop playsinline preload="metadata" data-video-b64="media/delicias-ceviche-preparation.mp4.b64" data-poster-b64="media/delicias-ceviche-still.webp.b64" aria-label="Fresh fish ceviche being prepared in a catering tray"></video>
+    </div>
+    <div class="ceviche-copy">
+      <p class="kicker">New from the kitchen</p>
+      <h2 id="ceviche-title">Ceviche made fresh, tray by tray.</h2>
+      <p class="sub">This authentic kitchen video shows fish ceviche being mixed with fresh tomato, cucumber, red onion, cilantro, and citrus for a colorful catering tray.</p>
+      <figure class="ceviche-still"><img src="" data-b64="media/delicias-ceviche-still.webp.b64" alt="Fresh fish ceviche with tomato, cucumber, red onion, cilantro, and citrus" loading="lazy" decoding="async"><figcaption lang="es">Original en español: “Charola de ceviche de pescado”</figcaption></figure>
+      <h3>Latest tray prices</h3>
+      <div class="ceviche-prices" aria-label="Current catering tray prices">
+        <div class="ceviche-price"><span>Fish ceviche tray</span><strong>$150</strong></div>
+        <div class="ceviche-price"><span>Mexican rice tray</span><strong>$35</strong></div>
+        <div class="ceviche-price"><span>Salsa</span><strong>$8 each</strong></div>
+        <div class="ceviche-price"><span>Medium vegetable tray</span><strong>$45</strong></div>
+        <div class="ceviche-price"><span>Cheese enchiladas</span><strong>$35</strong></div>
+        <div class="ceviche-price"><span>Chicken enchiladas</span><strong>$45</strong></div>
+      </div>
+      <p class="ceviche-note">Current starting prices shared by Delicias Daniel. Final tray size, quantity, availability, delivery, and event details are confirmed in the written quote.</p>
+      <a class="btn package-request" data-package="Fish ceviche tray" href="#quote">Request the ceviche tray →</a>
+    </div>
+  </div>
+</section>
+
+<section class="abarcalyst-ad" aria-labelledby="abarcalyst-title"><div class="wrap">
       <div class="ab-shell">
         <div class="ab-topline"><span class="ab-badge">Featured technology preview</span><span class="ab-status">App under construction</span></div>
         <div class="ab-video">
@@ -459,6 +507,28 @@
     });
     Object.assign(es,{"✉ Email my quote request":"✉ Enviar mi solicitud por correo","Choose text or email. Your request is not a confirmed booking.":"Elija mensaje de texto o correo electrónico. Su solicitud no confirma la reservación."});
     Object.assign(hy,{"✉ Email my quote request":"✉ Ուղարկել հարցումը էլ․ փոստով","Choose text or email. Your request is not a confirmed booking.":"Ընտրեք հաղորդագրություն կամ էլ․ փոստ։ Ձեր հարցումը դեռ հաստատված ամրագրում չէ։"});
+
+    Object.assign(es,{
+      "Real Delicias Daniel kitchen":"Cocina real de Delicias Daniel",
+      "New from the kitchen":"Nuevo de la cocina",
+      "Ceviche made fresh, tray by tray.":"Ceviche fresco, preparado charola por charola.",
+      "This authentic kitchen video shows fish ceviche being mixed with fresh tomato, cucumber, red onion, cilantro, and citrus for a colorful catering tray.":"Este video auténtico muestra ceviche de pescado preparado con tomate fresco, pepino, cebolla morada, cilantro y cítricos para una colorida charola de catering.",
+      "Latest tray prices":"Precios más recientes por charola",
+      "Fish ceviche tray":"Charola de ceviche de pescado","Mexican rice tray":"Charola de arroz mexicano","Salsa":"Salsa","$8 each":"$8 cada una","Medium vegetable tray":"Charola mediana de vegetales","Cheese enchiladas":"Enchiladas de queso","Chicken enchiladas":"Enchiladas de pollo",
+      "Current starting prices shared by Delicias Daniel. Final tray size, quantity, availability, delivery, and event details are confirmed in the written quote.":"Precios iniciales vigentes compartidos por Delicias Daniel. El tamaño y la cantidad de las charolas, la disponibilidad, la entrega y los detalles del evento se confirman en la cotización escrita.",
+      "Request the ceviche tray →":"Solicitar la charola de ceviche →"
+    });
+    Object.assign(hy,{
+      "Real Delicias Daniel kitchen":"Delicias Daniel-ի իրական խոհանոցը",
+      "New from the kitchen":"Նորություն խոհանոցից",
+      "Ceviche made fresh, tray by tray.":"Թարմ սևիչե՝ սկուտեղ առ սկուտեղ։",
+      "This authentic kitchen video shows fish ceviche being mixed with fresh tomato, cucumber, red onion, cilantro, and citrus for a colorful catering tray.":"Այս իրական խոհանոցային տեսանյութում ձկան սևիչեն պատրաստվում է թարմ լոլիկով, վարունգով, կարմիր սոխով, համեմով և ցիտրուսով՝ գունեղ քեյթրինգի սկուտեղի համար։",
+      "Latest tray prices":"Սկուտեղների վերջին գները",
+      "Fish ceviche tray":"Ձկան սևիչեի սկուտեղ","Mexican rice tray":"Մեքսիկական բրնձի սկուտեղ","Salsa":"Սալսա","$8 each":"յուրաքանչյուրը՝ $8","Medium vegetable tray":"Միջին բանջարեղենի սկուտեղ","Cheese enchiladas":"Պանրով էնչիլադաներ","Chicken enchiladas":"Հավով էնչիլադաներ",
+      "Current starting prices shared by Delicias Daniel. Final tray size, quantity, availability, delivery, and event details are confirmed in the written quote.":"Delicias Daniel-ի տրամադրած ընթացիկ մեկնարկային գները։ Սկուտեղի չափը, քանակը, հասանելիությունը, առաքումը և միջոցառման մանրամասները հաստատվում են գրավոր գնառաջարկում։",
+      "Request the ceviche tray →":"Պատվիրել սևիչեի սկուտեղը →"
+    });
+
     const placeholderEs={"Name":"Nombre","Birthday, office lunch…":"Cumpleaños, comida de oficina…","About 50":"Aproximadamente 50","Where is the event?":"¿Dónde será el evento?","Food ideas, serving time, questions…":"Ideas de comida, hora, preguntas…"};
     const placeholderHy={"Name":"Անուն","Birthday, office lunch…":"Ծննդյան տոն, գրասենյակային ճաշ…","About 50":"Մոտ 50","Where is the event?":"Որտե՞ղ է միջոցառումը։","Food ideas, serving time, questions…":"Սննդի գաղափարներ, ժամ, հարցեր…"};
     const textNodes=[];const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);while(walker.nextNode()){const n=walker.currentNode;if(n.nodeValue.trim()){n.originalEnglish=n.nodeValue;textNodes.push(n)}}
@@ -483,6 +553,35 @@
       new MutationObserver(removeDuplicatePartnerBanner).observe(document.body, { childList: true, subtree: true });
     })();
   </script>
+
+  <script>
+    (() => {
+      const decode = async (path, type) => {
+        const encoded = (await fetch(path).then(r => {
+          if (!r.ok) throw new Error("Media unavailable");
+          return r.text();
+        })).trim();
+        const binary = atob(encoded);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        return URL.createObjectURL(new Blob([bytes], {type}));
+      };
+      document.querySelectorAll("video[data-video-b64]").forEach(async video => {
+        try {
+          const [src, poster] = await Promise.all([
+            decode(video.dataset.videoB64, "video/mp4"),
+            decode(video.dataset.posterB64, "image/webp")
+          ]);
+          video.src = src;
+          video.poster = poster;
+          video.load();
+        } catch (error) {
+          video.setAttribute("aria-label", "Ceviche video is temporarily unavailable");
+        }
+      });
+    })();
+  </script>
+
 </body>
 </html>
 <!-- Deployment refresh: cinematic ABARCALYST showcase -->
