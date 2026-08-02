@@ -241,13 +241,13 @@
   <div class="wrap ceviche-layout">
     <div class="ceviche-video-wrap">
       <span class="ceviche-badge">Real Delicias Daniel kitchen</span>
-      <video controls muted loop playsinline preload="metadata" data-video-b64="media/delicias-ceviche-preparation.mp4.b64" data-poster-b64="media/delicias-ceviche-still.webp.b64" aria-label="Fresh fish ceviche being prepared in a catering tray"></video>
+      <video controls muted loop playsinline preload="metadata" src="media/delicias-ceviche-preparation.mp4" poster="media/delicias-ceviche-still.webp" aria-label="Fresh fish ceviche being prepared in a catering tray"></video>
     </div>
     <div class="ceviche-copy">
       <p class="kicker">New from the kitchen</p>
       <h2 id="ceviche-title">Ceviche made fresh, tray by tray.</h2>
       <p class="sub">This authentic kitchen video shows fish ceviche being mixed with fresh tomato, cucumber, red onion, cilantro, and citrus for a colorful catering tray.</p>
-      <figure class="ceviche-still"><img src="" data-b64="media/delicias-ceviche-still.webp.b64" alt="Fresh fish ceviche with tomato, cucumber, red onion, cilantro, and citrus" loading="lazy" decoding="async"><figcaption lang="es">Original en español: “Charola de ceviche de pescado”</figcaption></figure>
+      <figure class="ceviche-still"><img src="media/delicias-ceviche-still.webp" alt="Fresh fish ceviche with tomato, cucumber, red onion, cilantro, and citrus" loading="lazy" decoding="async"><figcaption lang="es">Original en español: “Charola de ceviche de pescado”</figcaption></figure>
       <h3>Latest tray prices</h3>
       <div class="ceviche-prices" aria-label="Current catering tray prices">
         <div class="ceviche-price"><span>Fish ceviche tray</span><strong>$150</strong></div>
@@ -554,33 +554,7 @@
     })();
   </script>
 
-  <script>
-    (() => {
-      const decode = async (path, type) => {
-        const encoded = (await fetch(path).then(r => {
-          if (!r.ok) throw new Error("Media unavailable");
-          return r.text();
-        })).trim();
-        const binary = atob(encoded);
-        const bytes = new Uint8Array(binary.length);
-        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-        return URL.createObjectURL(new Blob([bytes], {type}));
-      };
-      document.querySelectorAll("video[data-video-b64]").forEach(async video => {
-        try {
-          const [src, poster] = await Promise.all([
-            decode(video.dataset.videoB64, "video/mp4"),
-            decode(video.dataset.posterB64, "image/webp")
-          ]);
-          video.src = src;
-          video.poster = poster;
-          video.load();
-        } catch (error) {
-          video.setAttribute("aria-label", "Ceviche video is temporarily unavailable");
-        }
-      });
-    })();
-  </script>
+
 
 </body>
 </html>
