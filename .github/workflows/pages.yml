@@ -23,6 +23,50 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Optimize media for web delivery
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64, re
+
+          page = Path("index.html")
+          html = page.read_text(encoding="utf-8")
+          media = Path("media")
+          media.mkdir(exist_ok=True)
+
+          paths = sorted(set(re.findall(r'data-b64="([^"]+)"', html)))
+          for source in paths:
+              src = Path(source)
+              if not src.exists():
+                  continue
+              name = src.name[:-4] if src.name.endswith('.b64') else src.name
+              target = media / name
+              try:
+                  payload = base64.b64decode(src.read_text(encoding="utf-8").strip())
+                  if not payload:
+                      continue
+                  target.write_bytes(payload)
+                  html = html.replace(f'src="" data-b64="{source}"', f'src="/media/{name}"')
+              except Exception as exc:
+                  print(f"Keeping runtime fallback for {source}: {exc}")
+
+          hero_preload = '<link rel="preload" as="image" href="/media/hero-catering.webp" fetchpriority="high">'
+          if '/media/hero-catering.webp' in html and hero_preload not in html:
+              html = html.replace('</head>', f'  {hero_preload}\n</head>')
+
+          html = html.replace(
+              '<img class="hero-bg" src="/media/hero-catering.webp"',
+              '<img class="hero-bg" src="/media/hero-catering.webp" fetchpriority="high" decoding="async"'
+          )
+          html = html.replace(
+              '<img class="hero-logo" src="/media/delicias-daniel-logo.webp"',
+              '<img class="hero-logo" src="/media/delicias-daniel-logo.webp" decoding="async"'
+          )
+
+          page.write_text(html, encoding="utf-8")
+          PY
+
       - name: Add site upgrades
         run: |
           python3 - <<'PY'
@@ -40,14 +84,17 @@ jobs:
               html = html.replace("</body>", f"  {premium_js}\n</body>")
           page.write_text(html, encoding="utf-8")
           PY
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
+
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
