@@ -1,0 +1,93 @@
+name: Local SEO expansion
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/seo-local-expansion.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-seo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build local and service pages
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import html
+
+          base_css = '''
+          :root{--dark:#250b06;--red:#bd2d18;--gold:#ffc83d;--cream:#fff7e8;--ink:#30140d}
+          *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fffaf0,#fff1d8);color:var(--ink);font-family:Arial,sans-serif}.wrap{width:min(980px,calc(100% - 36px));margin:auto}header{padding:24px 0;background:var(--dark);color:white}header .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px}header a,.cta{display:inline-flex;align-items:center;justify-content:center;padding:14px 20px;border-radius:999px;background:var(--gold);color:var(--dark);font-weight:900;text-decoration:none}main{padding:70px 0}.eyebrow{color:var(--red);font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase}h1{margin:10px 0 18px;font-family:Georgia,serif;font-size:clamp(42px,8vw,74px);line-height:.96}.lead{max-width:780px;color:#705a52;line-height:1.8;font-size:18px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:35px}.card{padding:28px;background:white;border:1px solid #ead7bd;border-radius:24px;box-shadow:0 18px 50px #6b2c1011}.card h2{margin:0 0 10px;font-family:Georgia,serif;font-size:28px}.card p,.card li{color:#6d574e;line-height:1.7}.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}.links a{padding:9px 12px;border:1px solid #e0cdb5;border-radius:999px;color:#7a2a19;text-decoration:none;font-weight:800;font-size:13px}.notice{margin-top:30px;padding:28px;border-radius:24px;color:white;background:linear-gradient(145deg,#38130c,#781f11)}footer{padding:28px 0;color:#ffffffa8;background:#170703;text-align:center;font-size:13px}@media(max-width:700px){.grid{grid-template-columns:1fr}header .wrap{align-items:flex-start;flex-direction:column}}
+          '''
+
+          areas = {
+            'van-nuys-catering': ('Van Nuys Catering', 'Van Nuys', 'Delicias Daniel provides custom catering for birthdays, family gatherings, office meals, school and community events in Van Nuys. Choose Mexican, Salvadoran, and American favorites, then confirm quantities, pickup or delivery, and final pricing through a personalized quote.'),
+            'north-hollywood-catering': ('North Hollywood Catering', 'North Hollywood', 'Planning an event in North Hollywood? Delicias Daniel serves nearby celebrations with custom Mexican, Salvadoran, and American catering. Share your event date, guest count, serving time, and food ideas for a personalized quote.'),
+            'reseda-catering': ('Reseda Catering', 'Reseda', 'Delicias Daniel serves Reseda with practical party trays, pupusas, tacos, tamales, sides, aguas frescas, and American party favorites. Every order is confirmed by quote so portions and service details fit the event.'),
+            'burbank-catering': ('Burbank Catering', 'Burbank', 'For Burbank birthdays, office meals, family parties, and special events, Delicias Daniel offers custom catering built around Mexican, Salvadoran, and American menu options. Availability and delivery details are confirmed before booking.'),
+            'sherman-oaks-catering': ('Sherman Oaks Catering', 'Sherman Oaks', 'Delicias Daniel offers custom catering for Sherman Oaks events with shareable trays and party packages. Choose from Mexican, Salvadoran, and American favorites and request a written quote based on your date and guest count.')
+          }
+
+          services = {
+            'taco-catering': ('Taco Catering', 'Taco trays for parties and events', 'Choose available proteins such as al pastor, chicken, or beef, with onions, cilantro, limes, and red or green salsa. Quantities, sides, delivery, and final pricing are confirmed in your quote.'),
+            'pupusa-catering': ('Pupusa Catering', 'Pupusas made for gatherings', 'Ask about bean, bean and cheese, or revueltas with chicharrón, plus curtido and salsa roja. Delicias Daniel can build pupusa quantities and sides around your event and guest count.'),
+            'birthday-catering': ('Birthday Catering', 'Easy food for birthday celebrations', 'Build a birthday menu with tacos, pupusas, tamales, burgers, chicken favorites, sides, drinks, and custom combinations. Share the date, location, and guest count for a personalized catering quote.')
+          }
+
+          common_links = '''<div class="links"><a href="/">Main menu</a><a href="/areas/van-nuys-catering.html">Van Nuys</a><a href="/areas/north-hollywood-catering.html">North Hollywood</a><a href="/areas/reseda-catering.html">Reseda</a><a href="/areas/burbank-catering.html">Burbank</a><a href="/areas/sherman-oaks-catering.html">Sherman Oaks</a><a href="/services/taco-catering.html">Taco catering</a><a href="/services/pupusa-catering.html">Pupusa catering</a><a href="/services/birthday-catering.html">Birthday catering</a></div>'''
+
+          def page(title, desc, eyebrow, h1, lead, body, canonical):
+              return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)} | Delicias Daniel Catering</title><meta name="description" content="{html.escape(desc)}"><link rel="canonical" href="https://deliciasdaniel.com/{canonical}"><style>{base_css}</style></head><body><header><div class="wrap"><strong>Delicias Daniel Catering</strong><a href="/">View full menu</a></div></header><main><div class="wrap"><div class="eyebrow">{html.escape(eyebrow)}</div><h1>{html.escape(h1)}</h1><p class="lead">{html.escape(lead)}</p>{body}{common_links}<div class="notice"><strong>Ready for a custom quote?</strong><p>Call or text Delicias Daniel at (818) 690-8693 with your event date, guest count, location, and menu ideas.</p><a class="cta" href="tel:+18186908693">Call (818) 690-8693</a></div></div></main><footer>Delicias Daniel Catering · Van Nuys & nearby communities · deliciasdaniel.com</footer></body></html>'''
+
+          Path('areas').mkdir(exist_ok=True)
+          Path('services').mkdir(exist_ok=True)
+
+          for slug, (title, city, lead) in areas.items():
+              body = f'''<div class="grid"><section class="card"><h2>Catering for {html.escape(city)} events</h2><p>Great for birthdays, family celebrations, office meals, school functions, and community gatherings. Pickup, delivery, setup, and staffed service are confirmed based on the event.</p></section><section class="card"><h2>Popular menu ideas</h2><ul><li>Taco trays</li><li>Pupusas and curtido</li><li>Salvadoran or Mexican tamales</li><li>Rice, beans, sides, and aguas frescas</li><li>American party favorites</li></ul></section></div>'''
+              p = page(title, f'Custom Mexican, Salvadoran, and American catering for {city} events. Call Delicias Daniel at (818) 690-8693 for a quote.', 'Areas we serve', title, lead, body, f'areas/{slug}.html')
+              Path(f'areas/{slug}.html').write_text(p, encoding='utf-8')
+
+          for slug, (title, sub, lead) in services.items():
+              body = f'''<div class="grid"><section class="card"><h2>{html.escape(sub)}</h2><p>{html.escape(lead)}</p></section><section class="card"><h2>How ordering works</h2><ol><li>Share your date, location, and guest count.</li><li>Choose menu ideas and quantities.</li><li>Receive a custom quote with confirmed availability and service details.</li></ol></section></div>'''
+              p = page(title, f'{title} from Delicias Daniel Catering in Van Nuys and nearby communities. Call (818) 690-8693 for a custom event quote.', 'Catering services', title, lead, body, f'services/{slug}.html')
+              Path(f'services/{slug}.html').write_text(p, encoding='utf-8')
+
+          index = Path('index.html')
+          html_text = index.read_text(encoding='utf-8')
+          marker = '<section class="quote" id="quote">'
+          seo_block = '''<section class="local-seo" id="areas-we-serve"><div class="wrap"><div class="heading"><p class="kicker">Catering across the Valley</p><h2>Serving Van Nuys and nearby communities.</h2><p class="sub">Explore local catering information and popular event services. Every order is still personally confirmed by Delicias Daniel with a custom quote.</p></div><div class="local-seo-grid"><a href="/areas/van-nuys-catering.html">Van Nuys Catering</a><a href="/areas/north-hollywood-catering.html">North Hollywood Catering</a><a href="/areas/reseda-catering.html">Reseda Catering</a><a href="/areas/burbank-catering.html">Burbank Catering</a><a href="/areas/sherman-oaks-catering.html">Sherman Oaks Catering</a><a href="/services/taco-catering.html">Taco Catering</a><a href="/services/pupusa-catering.html">Pupusa Catering</a><a href="/services/birthday-catering.html">Birthday Catering</a></div></div></section>'''
+          if 'id="areas-we-serve"' not in html_text and marker in html_text:
+              html_text = html_text.replace(marker, seo_block + '\n' + marker, 1)
+          css = '''\n.local-seo{background:#fffaf1}.local-seo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:32px}.local-seo-grid a{display:flex;align-items:center;min-height:74px;padding:18px 20px;background:white;border:1px solid #ead8c2;border-radius:18px;color:#7a2817;font-weight:900;box-shadow:0 12px 30px #6b2c100d}.local-seo-grid a:hover{transform:translateY(-2px);box-shadow:0 18px 36px #6b2c1018}@media(max-width:850px){.local-seo-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.local-seo-grid{grid-template-columns:1fr}}\n'''
+          if '.local-seo-grid{' not in html_text:
+              html_text = html_text.replace('</style>', css + '</style>', 1)
+          html_text = html_text.replace('"areaServed": "Van Nuys and nearby communities"', '"areaServed": ["Van Nuys","North Hollywood","Reseda","Burbank","Sherman Oaks","San Fernando Valley"]')
+          index.write_text(html_text, encoding='utf-8')
+
+          urls = ['','ordering-policy.html'] + [f'areas/{s}.html' for s in areas] + [f'services/{s}.html' for s in services]
+          today = '2026-08-12'
+          sitemap = ['<?xml version="1.0" encoding="UTF-8"?>','<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+          for i,u in enumerate(urls):
+              loc = 'https://deliciasdaniel.com/' + u
+              priority = '1.0' if not u else ('0.8' if u.startswith(('areas/','services/')) else '0.7')
+              freq = 'weekly' if not u else 'monthly'
+              sitemap += ['  <url>',f'    <loc>{loc}</loc>',f'    <lastmod>{today}</lastmod>',f'    <changefreq>{freq}</changefreq>',f'    <priority>{priority}</priority>','  </url>']
+          sitemap.append('</urlset>')
+          Path('sitemap.xml').write_text('\n'.join(sitemap)+'\n', encoding='utf-8')
+          PY
+      - name: Commit SEO expansion
+        run: |
+          git config user.name "Bladimir Abarca"
+          git config user.email "memecity13@gmail.com"
+          git add index.html sitemap.xml areas services
+          git diff --cached --quiet && exit 0
+          git commit -m "Expand local catering SEO coverage"
+          git push
