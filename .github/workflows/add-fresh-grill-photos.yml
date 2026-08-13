@@ -1,0 +1,49 @@
+name: Add fresh grill photos
+
+on:
+  push:
+    paths:
+      - '.github/gallery-refresh.flag'
+
+permissions:
+  contents: write
+
+jobs:
+  update-gallery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decode new gallery photos
+        run: |
+          base64 -d assets/fresh-tortillas-grill.webp.b64 > media/fresh-tortillas-grill.webp
+          base64 -d assets/fresh-meat-grill.webp.b64 > media/fresh-meat-grill.webp
+
+      - name: Add photos to real kitchen gallery
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '''      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12392.webp.b64" alt="Rich red house salsa" loading="lazy" decoding="async"><figcaption>Rich red house salsa</figcaption></figure>\n    </div>'''
+          replacement = '''      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12392.webp.b64" alt="Rich red house salsa" loading="lazy" decoding="async"><figcaption>Rich red house salsa</figcaption></figure>\n      <figure class="dd-kitchen-card"><img src="media/fresh-tortillas-grill.webp" alt="Fresh tortillas cooking on the grill at Delicias Daniel Catering" loading="lazy" decoding="async"><figcaption>Fresh tortillas on the grill</figcaption></figure>\n      <figure class="dd-kitchen-card"><img src="media/fresh-meat-grill.webp" alt="Fresh seasoned meat cooking on the grill for Delicias Daniel Catering" loading="lazy" decoding="async"><figcaption>Seasoned meat cooked hot and fresh</figcaption></figure>\n    </div>'''
+          if 'media/fresh-tortillas-grill.webp' not in s:
+              if marker not in s:
+                  raise SystemExit('Gallery marker not found; refusing unsafe edit')
+              s = s.replace(marker, replacement, 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit gallery update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html media/fresh-tortillas-grill.webp media/fresh-meat-grill.webp
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add fresh grill photos to kitchen gallery"
+            git push
+          fi
