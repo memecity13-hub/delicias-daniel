@@ -29,9 +29,15 @@ jobs:
           from pathlib import Path
           page = Path("index.html")
           html = page.read_text(encoding="utf-8")
-          tag = '<script src="/site-upgrades.js" defer></script>'
-          if tag not in html:
-              html = html.replace("</body>", f"  {tag}\n</body>")
+          script = '<script src="/site-upgrades.js" defer></script>'
+          premium_css = '<link rel="stylesheet" href="/premium-v2.css">'
+          premium_js = '<script src="/premium-v2.js" defer></script>'
+          if premium_css not in html:
+              html = html.replace("</head>", f"  {premium_css}\n</head>")
+          if script not in html:
+              html = html.replace("</body>", f"  {script}\n</body>")
+          if premium_js not in html:
+              html = html.replace("</body>", f"  {premium_js}\n</body>")
           page.write_text(html, encoding="utf-8")
           PY
       - name: Configure Pages
