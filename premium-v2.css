@@ -1,0 +1,57 @@
+/* Delicias Daniel — Premium Homepage V2 */
+:root{--dd-shadow:0 28px 80px rgba(62,18,8,.14);--dd-border:#ead8c2}
+.hero{min-height:820px}
+.hero-bg{filter:saturate(1.08) contrast(1.03)}
+.shade{background:linear-gradient(90deg,#170502f7 0%,#2b0b06e8 42%,#2a0b0680 67%,#19060342 100%)}
+.hero-inner{min-height:820px}
+.hero-copy{max-width:710px;padding-top:92px}
+.hero-copy .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid #ffffff29;border-radius:999px;background:#ffffff0c;backdrop-filter:blur(10px)}
+.hero-logo{width:min(345px,75vw);box-shadow:0 20px 55px #0005}
+.hero h1{max-width:700px;font-size:clamp(54px,7.2vw,92px);line-height:.88;letter-spacing:-5px;text-wrap:balance}
+.hero .lead{max-width:620px;color:#fffde0;font-size:17px;line-height:1.75}
+.hero .actions{margin-top:28px}
+.hero .btn{min-height:56px;padding:0 26px;box-shadow:0 14px 38px #0003}
+.hero .primary{background:linear-gradient(135deg,#ffd75f,#ffbd24)}
+.hero .secondary{background:#ffffff12;backdrop-filter:blur(12px)}
+.hero .number{display:inline-flex;margin-top:18px;padding:7px 0;color:#fff;font-size:15px;letter-spacing:.3px}
+.hero-trust{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.hero-trust span{padding:8px 11px;border:1px solid #ffffff22;border-radius:999px;background:#11040172;color:#fffbd7;font-size:11px;font-weight:900;backdrop-filter:blur(8px)}
+.strip{box-shadow:0 12px 35px #6b2c1018}
+.package-grid{gap:18px}
+.package{position:relative;overflow:hidden;border:1px solid #ffffff10;box-shadow:var(--dd-shadow);transition:transform .25s ease,box-shadow .25s ease}
+.package:hover{transform:translateY(-5px);box-shadow:0 34px 90px #4b170f32}
+.package:before{content:"";position:absolute;inset:-45% auto auto -25%;width:210px;height:210px;border-radius:50%;background:#ffffff0c;filter:blur(2px)}
+.package.featured{border:1px solid #de9e12}
+.package a{min-height:50px}
+.reviews{gap:55px}
+.review-box{position:relative;overflow:hidden;box-shadow:var(--dd-shadow)}
+.review-box:before{content:"GOOGLE REVIEWS";display:inline-flex;padding:7px 10px;border-radius:999px;background:#fff;color:#8d2e1a;border:1px solid var(--dd-border);font-size:10px;font-weight:1000;letter-spacing:1.2px}
+.review-box .stars{font-size:24px}
+.review-box strong{max-width:520px;line-height:1.15}
+.review-actions{display:flex;flex-wrap:wrap;gap:10px}
+.review-actions .btn{min-height:49px}
+.review-secondary{border:1px solid #e2ccb3;background:#fff;color:#7d2c1a}
+.quote{position:relative;overflow:hidden;background:linear-gradient(140deg,#170502,#2c0b06 62%,#4d140b)}
+.quote:before{content:"";position:absolute;width:520px;height:520px;right:-180px;top:-220px;border-radius:50%;background:#bd2d1824;filter:blur(8px)}
+.quote-grid{position:relative;z-index:1;gap:70px}
+.quote h2{max-width:520px}
+.quote .form{padding:34px;border:1px solid #ffffff18;box-shadow:0 34px 90px #0005}
+.quote .form label{font-size:11px;letter-spacing:.2px}
+.quote .form input,.quote .form textarea,.quote .form select{min-height:50px;background:#fffdfa;border:1px solid #e3cfb8;outline:none;transition:border-color .2s,box-shadow .2s}
+.quote .form textarea{min-height:115px}
+.quote .form input:focus,.quote .form textarea:focus,.quote .form select:focus{border-color:#c6462d;box-shadow:0 0 0 4px #bd2d1814}
+.quote-planner-label{display:block;margin:0 0 8px;color:#7c5f55;font-size:10px;font-weight:1000;letter-spacing:1.4px;text-transform:uppercase}
+.quote-extras{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.dd-real-food{position:relative}
+.dd-kitchen-grid{gap:16px}
+.dd-kitchen-card{border:1px solid #ffffff75;box-shadow:0 20px 55px #571c1020}
+.dd-kitchen-card.dd-featured-photo{grid-column:span 2;grid-row:span 2}
+.dd-kitchen-card figcaption{padding:7px 9px;border-radius:9px;background:#14060366;backdrop-filter:blur(7px);width:max-content;max-width:calc(100% - 32px)}
+.dd-kitchen-card:after{inset:38% 0 0;background:linear-gradient(transparent,#180502e8)}
+.mobile{grid-template-columns:1fr 1fr 1fr!important;gap:7px!important;padding:8px 10px!important;background:#160603ed!important;backdrop-filter:blur(16px);border-top:1px solid #ffffff1b}
+.mobile a{height:50px!important;border-radius:999px!important;background:#ffffff10!important;border:1px solid #ffffff16}
+.mobile a:first-child{background:var(--gold)!important;color:var(--ink)!important;border-color:transparent}
+.mobile a.mobile-quote{background:var(--red)!important;color:#fff!important;border-color:transparent}
+.local-seo-grid a{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+@media(max-width:850px){.hero,.hero-inner{min-height:760px}.hero-copy{padding-top:105px}.quote-grid{gap:38px}.dd-kitchen-card.dd-featured-photo{grid-column:span 2}.review-box{padding:34px}}
+@media(max-width:560px){body{padding-bottom:74px}.hero,.hero-inner{min-height:720px}.hero-copy{padding-top:110px}.hero h1{font-size:52px;letter-spacing:-3.5px}.hero .lead{font-size:15px}.hero .actions{grid-template-columns:1fr 1fr}.hero .btn{padding:0 15px;font-size:13px}.hero-trust{gap:6px}.hero-trust span{font-size:9px}.quote-extras{grid-template-columns:1fr}.quote .form{padding:22px}.dd-kitchen-card.dd-featured-photo{grid-row:span 2}.mobile a{font-size:12px!important}.review-box{padding:26px}}
