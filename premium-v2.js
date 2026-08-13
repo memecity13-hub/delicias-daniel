@@ -1,6 +1,11 @@
 (() => {
-  const onReady = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn, {once:true}) : fn();
+  const onReady = (fn) => document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', fn, {once:true})
+    : fn();
+
   onReady(() => {
+    const googleProfileUrl = 'https://www.google.com/maps/search/?api=1&query=Delicias+Daniel+Catering+Van+Nuys+CA';
+
     const heroCopy = document.querySelector('.hero-copy');
     if (heroCopy && !heroCopy.querySelector('.hero-trust')) {
       const trust = document.createElement('div');
@@ -19,22 +24,46 @@
       if (secondary) { secondary.textContent = 'View Menu'; secondary.href = '#menu'; }
     }
 
+    document.querySelectorAll('img').forEach((img) => {
+      if (!img.classList.contains('hero-bg')) {
+        if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+      }
+      if (!img.closest('.hero') && !img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+    });
+
     document.querySelectorAll('.package').forEach((card, i) => {
       card.setAttribute('aria-label', card.querySelector('h4')?.textContent?.trim() || `Catering package ${i+1}`);
     });
 
+    const reviewSection = document.querySelector('.reviews');
     const reviewBox = document.querySelector('.review-box');
+    if (reviewSection) {
+      const intro = reviewSection.querySelector('.sub');
+      if (intro) intro.textContent = 'See Delicias Daniel on Google, read genuine customer feedback, and share your own experience after a completed order.';
+    }
     if (reviewBox) {
-      const strong = reviewBox.querySelector('strong');
-      if (strong) strong.textContent = 'Real customer feedback, published only with permission.';
-      const old = reviewBox.querySelector('a.btn');
-      if (old) old.remove();
-      if (!reviewBox.querySelector('.review-actions')) {
-        const wrap = document.createElement('div');
-        wrap.className = 'review-actions';
-        wrap.innerHTML = '<a class="btn primary" href="https://www.google.com/search?q=Delicias+Daniel+Catering+Van+Nuys" target="_blank" rel="noopener noreferrer">View on Google</a><a class="btn review-secondary" href="sms:18186908693?&body=Hi%20Delicias%20Daniel%2C%20I%27d%20like%20to%20share%20feedback%20about%20my%20catering%20experience.">Share feedback</a>';
-        reviewBox.appendChild(wrap);
+      const stars = reviewBox.querySelector('.stars');
+      if (stars) {
+        stars.textContent = '★★★★★';
+        stars.setAttribute('aria-label', 'Google review section');
       }
+      const strong = reviewBox.querySelector('strong');
+      if (strong) strong.textContent = 'Real customer feedback. No invented testimonials.';
+
+      reviewBox.querySelectorAll('.review-actions').forEach(node => node.remove());
+      reviewBox.querySelectorAll('a.btn').forEach(node => node.remove());
+
+      if (!reviewBox.querySelector('.google-review-note')) {
+        const note = document.createElement('p');
+        note.className = 'google-review-note';
+        note.textContent = 'Already ordered from us? Open our Google profile and choose Reviews to leave an honest review.';
+        reviewBox.appendChild(note);
+      }
+
+      const wrap = document.createElement('div');
+      wrap.className = 'review-actions';
+      wrap.innerHTML = `<a class="btn primary" href="${googleProfileUrl}" target="_blank" rel="noopener noreferrer">Read Google Reviews</a><a class="btn review-secondary" href="${googleProfileUrl}" target="_blank" rel="noopener noreferrer">Leave a Google Review</a>`;
+      reviewBox.appendChild(wrap);
     }
 
     const form = document.getElementById('form');
@@ -91,8 +120,40 @@
 
     const grid = document.querySelector('.dd-kitchen-grid');
     if (grid) {
-      const featured = [...grid.querySelectorAll('.dd-kitchen-card')].filter(card => card.querySelector('img[src*="fresh-tortillas-grill"],img[src*="fresh-meat-grill"]'));
-      featured.reverse().forEach(card => { card.classList.add('dd-featured-photo'); grid.prepend(card); });
+      const cards = [...grid.querySelectorAll('.dd-kitchen-card')];
+      const priority = [
+        'fresh-tortillas-grill',
+        'fresh-meat-grill',
+        'kitchen-12372',
+        'kitchen-12373',
+        'kitchen-12370',
+        'kitchen-12371',
+        'kitchen-12375',
+        'kitchen-12390',
+        'kitchen-12391',
+        'kitchen-12392',
+        'kitchen-12374',
+        'kitchen-12387',
+        'kitchen-12389',
+        'kitchen-12385',
+        'kitchen-12388',
+        'kitchen-12379',
+        'kitchen-12380'
+      ];
+
+      const rank = (card) => {
+        const img = card.querySelector('img');
+        const haystack = `${img?.getAttribute('src') || ''} ${img?.dataset?.b64 || ''} ${img?.alt || ''}`.toLowerCase();
+        const found = priority.findIndex(key => haystack.includes(key));
+        return found === -1 ? 999 : found;
+      };
+
+      cards.sort((a,b) => rank(a) - rank(b)).forEach((card, index) => {
+        card.classList.remove('dd-featured-photo','dd-hero-food','dd-wide-food');
+        if (index === 0 || index === 1) card.classList.add('dd-hero-food');
+        else if (index === 2 || index === 3 || index === 4) card.classList.add('dd-wide-food');
+        grid.appendChild(card);
+      });
     }
 
     const mobile = document.querySelector('.mobile');
