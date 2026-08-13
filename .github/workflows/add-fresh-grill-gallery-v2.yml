@@ -1,0 +1,45 @@
+name: Add fresh grill gallery v2
+
+on:
+  push:
+    paths:
+      - '.github/gallery-refresh-v2.flag'
+
+permissions:
+  contents: write
+
+jobs:
+  update-gallery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add photos to real kitchen gallery
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          if 'media/fresh-tortillas-grill.webp' in s:
+              print('Gallery already updated')
+              raise SystemExit(0)
+          marker = '''      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12392.webp.b64" alt="Rich red house salsa" loading="lazy" decoding="async"><figcaption>Rich red house salsa</figcaption></figure>\n    </div>'''
+          replacement = '''      <figure class="dd-kitchen-card"><img src="" data-b64="assets/kitchen-12392.webp.b64" alt="Rich red house salsa" loading="lazy" decoding="async"><figcaption>Rich red house salsa</figcaption></figure>\n      <figure class="dd-kitchen-card"><img src="media/fresh-tortillas-grill.webp" alt="Fresh tortillas cooking on the grill at Delicias Daniel Catering" loading="lazy" decoding="async"><figcaption>Fresh tortillas on the grill</figcaption></figure>\n      <figure class="dd-kitchen-card"><img src="media/fresh-meat-grill.webp" alt="Fresh seasoned meat cooking on the grill for Delicias Daniel Catering" loading="lazy" decoding="async"><figcaption>Seasoned meat cooked hot and fresh</figcaption></figure>\n    </div>'''
+          if marker not in s:
+              raise SystemExit('Gallery marker not found; refusing unsafe edit')
+          p.write_text(s.replace(marker, replacement, 1), encoding='utf-8')
+          PY
+
+      - name: Commit gallery update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Show fresh grill photos in kitchen gallery"
+            git push
+          fi
