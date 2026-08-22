@@ -7,10 +7,12 @@
     const googleProfileUrl = 'https://www.google.com/maps/search/?api=1&query=Delicias+Daniel+Catering+Van+Nuys+CA';
 
     const heroCopy = document.querySelector('.hero-copy');
-    if (heroCopy && !heroCopy.querySelector('.hero-trust')) {
+    if (heroCopy) {
+      const existingTrust = heroCopy.querySelector('.hero-trust');
+      if (existingTrust) existingTrust.remove();
       const trust = document.createElement('div');
       trust.className = 'hero-trust';
-      trust.innerHTML = '<span>Real kitchen</span><span>Custom quotes</span><span>Pickup & delivery options</span><span>Van Nuys & nearby</span>';
+      trust.innerHTML = '<span>30+ years experience</span><span>Special-request orders</span><span>Custom quotes</span><span>Pickup & delivery options</span>';
       const number = heroCopy.querySelector('.number');
       if (number) number.insertAdjacentElement('afterend', trust);
       else heroCopy.appendChild(trust);
@@ -20,16 +22,68 @@
     if (actions) {
       const primary = actions.querySelector('.primary');
       const secondary = actions.querySelector('.secondary');
-      if (primary) { primary.textContent = 'Get a Quote'; primary.href = '#quote'; }
+      if (primary) { primary.textContent = 'Get a Custom Quote'; primary.href = '#quote'; }
       if (secondary) { secondary.textContent = 'View Menu'; secondary.href = '#menu'; }
     }
 
     document.querySelectorAll('img').forEach((img) => {
-      if (!img.classList.contains('hero-bg')) {
-        if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
-      }
+      if (!img.classList.contains('hero-bg') && !img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
       if (!img.closest('.hero') && !img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
     });
+
+    const strip = document.querySelector('.strip');
+    const realFood = document.querySelector('.dd-real-food');
+    const oldGallerySection = document.querySelector('.gallery')?.closest('section');
+    if (strip && realFood) {
+      strip.insertAdjacentElement('afterend', realFood);
+      realFood.classList.add('dd-top-gallery');
+      if (oldGallerySection && oldGallerySection !== realFood) realFood.insertAdjacentElement('afterend', oldGallerySection);
+    }
+
+    if (realFood && !document.querySelector('.chef-experience')) {
+      const chef = document.createElement('section');
+      chef.className = 'chef-experience';
+      chef.innerHTML = `
+        <div class="wrap chef-experience-grid">
+          <div>
+            <p class="kicker">Experience you can taste</p>
+            <h2>30+ years of cooking & catering experience.</h2>
+          </div>
+          <div class="chef-experience-copy">
+            <p>Delicias Daniel brings more than three decades of hands-on cooking and catering experience to birthdays, family celebrations, office meals, community events, and special occasions.</p>
+            <div class="chef-badges"><span>Special-request orders available</span><span>Custom menus</span><span>Made for your event</span></div>
+            <a class="btn primary" href="#quote">Request a custom quote</a>
+          </div>
+        </div>`;
+      const anchor = oldGallerySection || realFood;
+      anchor.insertAdjacentElement('afterend', chef);
+    }
+
+    document.querySelectorAll('.price,.package-price,.ceviche-price strong').forEach(el => {
+      el.textContent = 'Call for quote';
+      el.classList.add('quote-only-price');
+    });
+
+    const replacePriceText = (root) => {
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(node => {
+        const parent = node.parentElement;
+        if (!parent || ['SCRIPT','STYLE'].includes(parent.tagName)) return;
+        let text = node.nodeValue;
+        if (!text || !text.includes('$')) return;
+        text = text.replace(/from\s*\$[\d,.]+/gi, 'Call for quote');
+        text = text.replace(/\$[\d,.]+(?:\s*[-–]\s*\$?[\d,.]+)?/g, 'Call for quote');
+        node.nodeValue = text;
+      });
+    };
+    replacePriceText(document.body);
+
+    const menuHeading = document.querySelector('#menu .heading h2');
+    if (menuHeading) menuHeading.textContent = 'Popular favorites. Custom quotes for every order.';
+    const menuSub = document.querySelector('#menu .heading .sub');
+    if (menuSub) menuSub.textContent = 'Choose from Mexican, Salvadoran, and American favorites. Final quantities, special requests, availability, and pricing are personally confirmed by Delicias Daniel for each event.';
 
     document.querySelectorAll('.package').forEach((card, i) => {
       card.setAttribute('aria-label', card.querySelector('h4')?.textContent?.trim() || `Catering package ${i+1}`);
@@ -49,17 +103,14 @@
       }
       const strong = reviewBox.querySelector('strong');
       if (strong) strong.textContent = 'Real customer feedback. No invented testimonials.';
-
       reviewBox.querySelectorAll('.review-actions').forEach(node => node.remove());
       reviewBox.querySelectorAll('a.btn').forEach(node => node.remove());
-
       if (!reviewBox.querySelector('.google-review-note')) {
         const note = document.createElement('p');
         note.className = 'google-review-note';
         note.textContent = 'Already ordered from us? Open our Google profile and choose Reviews to leave an honest review.';
         reviewBox.appendChild(note);
       }
-
       const wrap = document.createElement('div');
       wrap.className = 'review-actions';
       wrap.innerHTML = `<a class="btn primary" href="${googleProfileUrl}" target="_blank" rel="noopener noreferrer">Read Google Reviews</a><a class="btn review-secondary" href="${googleProfileUrl}" target="_blank" rel="noopener noreferrer">Leave a Google Review</a>`;
@@ -71,7 +122,7 @@
       const detailsLabel = form.querySelector('textarea[name="details"]')?.closest('label');
       const extras = document.createElement('div');
       extras.className = 'quote-extras';
-      extras.innerHTML = '<label><span class="quote-planner-label">Service</span><select name="service"><option value="">Choose one</option><option>Pickup</option><option>Delivery</option><option>Setup / staffed service</option><option>Not sure yet</option></select></label><label><span class="quote-planner-label">Menu interest</span><select name="menu_interest"><option value="">Choose one</option><option>Tacos</option><option>Pupusas</option><option>Tamales</option><option>American party food</option><option>Mixed / custom menu</option></select></label>';
+      extras.innerHTML = '<label><span class="quote-planner-label">Service</span><select name="service"><option value="">Choose one</option><option>Pickup</option><option>Delivery</option><option>Setup / staffed service</option><option>Not sure yet</option></select></label><label><span class="quote-planner-label">Menu interest</span><select name="menu_interest"><option value="">Choose one</option><option>Tacos</option><option>Pupusas</option><option>Tamales</option><option>American party food</option><option>Mixed / custom menu</option><option>Special request</option></select></label>';
       if (detailsLabel) detailsLabel.insertAdjacentElement('beforebegin', extras);
       else form.appendChild(extras);
     }
@@ -92,7 +143,7 @@
           `Location: ${f.get('location') || ''}`,
           `Service: ${f.get('service') || 'Not specified'}`,
           `Menu interest: ${f.get('menu_interest') || 'Not specified'}`,
-          `Details: ${f.get('details') || ''}`
+          `Details / special requests: ${f.get('details') || ''}`
         ];
         location.href = `sms:18186908693?&body=${encodeURIComponent(lines.join('\n'))}`;
       }, true);
@@ -112,7 +163,7 @@
           `Location: ${f.get('location') || ''}`,
           `Service: ${f.get('service') || 'Not specified'}`,
           `Menu interest: ${f.get('menu_interest') || 'Not specified'}`,
-          `Details: ${f.get('details') || ''}`
+          `Details / special requests: ${f.get('details') || ''}`
         ].join('\n');
         location.href = `mailto:deliciasdanielcatering@gmail.com?subject=${encodeURIComponent('Catering quote request')}&body=${encodeURIComponent(body)}`;
       }, true);
@@ -122,32 +173,14 @@
     if (grid) {
       const cards = [...grid.querySelectorAll('.dd-kitchen-card')];
       const priority = [
-        'fresh-tortillas-grill',
-        'fresh-meat-grill',
-        'kitchen-12372',
-        'kitchen-12373',
-        'kitchen-12370',
-        'kitchen-12371',
-        'kitchen-12375',
-        'kitchen-12390',
-        'kitchen-12391',
-        'kitchen-12392',
-        'kitchen-12374',
-        'kitchen-12387',
-        'kitchen-12389',
-        'kitchen-12385',
-        'kitchen-12388',
-        'kitchen-12379',
-        'kitchen-12380'
+        'fresh-meat-grill','fresh-tortillas-grill','kitchen-12372','kitchen-12373','kitchen-12370','kitchen-12371','kitchen-12375','kitchen-12390','kitchen-12391','kitchen-12392','kitchen-12374','kitchen-12387','kitchen-12389','kitchen-12385','kitchen-12388','kitchen-12379','kitchen-12380'
       ];
-
       const rank = (card) => {
         const img = card.querySelector('img');
         const haystack = `${img?.getAttribute('src') || ''} ${img?.dataset?.b64 || ''} ${img?.alt || ''}`.toLowerCase();
         const found = priority.findIndex(key => haystack.includes(key));
         return found === -1 ? 999 : found;
       };
-
       cards.sort((a,b) => rank(a) - rank(b)).forEach((card, index) => {
         card.classList.remove('dd-featured-photo','dd-hero-food','dd-wide-food');
         if (index === 0 || index === 1) card.classList.add('dd-hero-food');
