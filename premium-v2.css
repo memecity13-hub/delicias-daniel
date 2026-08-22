@@ -1,9 +1,9 @@
-/* Delicias Daniel — Premium Homepage V2 + Quality Pass */
+/* Delicias Daniel — Premium Homepage V2 + Visual First Pass */
 :root{--dd-shadow:0 28px 80px rgba(62,18,8,.14);--dd-border:#ead8c2}
-.hero{min-height:820px}
+.hero{min-height:790px}
 .hero-bg{filter:saturate(1.08) contrast(1.03)}
 .shade{background:linear-gradient(90deg,#170502f7 0%,#2b0b06e8 42%,#2a0b0680 67%,#19060342 100%)}
-.hero-inner{min-height:820px}
+.hero-inner{min-height:790px}
 .hero-copy{max-width:710px;padding-top:92px}
 .hero-copy .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid #ffffff29;border-radius:999px;background:#ffffff0c;backdrop-filter:blur(10px)}
 .hero-logo{width:min(345px,75vw);box-shadow:0 20px 55px #0005}
@@ -23,11 +23,10 @@
 .package:before{content:"";position:absolute;inset:-45% auto auto -25%;width:210px;height:210px;border-radius:50%;background:#ffffff0c;filter:blur(2px)}
 .package.featured{border:1px solid #de9e12}
 .package a{min-height:50px}
-.quote-only-price{font-size:14px!important;line-height:1.25;color:#bd2d18!important;font-weight:1000;text-transform:uppercase;letter-spacing:.5px}
+.quote-only-price{font-size:13px!important;line-height:1.25;color:#bd2d18!important;font-weight:1000;text-transform:uppercase;letter-spacing:.65px}
 .reviews{gap:55px}
 .review-box{position:relative;overflow:hidden;box-shadow:var(--dd-shadow);background:linear-gradient(145deg,#fffdf8,#fff5e7)}
 .review-box:before{content:"GOOGLE BUSINESS PROFILE";display:inline-flex;padding:7px 10px;border-radius:999px;background:#fff;color:#8d2e1a;border:1px solid var(--dd-border);font-size:10px;font-weight:1000;letter-spacing:1.2px}
-.review-box .stars{font-size:24px;opacity:.9}
 .review-box strong{max-width:520px;line-height:1.15}
 .google-review-note{max-width:560px;margin:0;color:#755d54;font-size:13px;line-height:1.65}
 .review-actions{display:flex;flex-wrap:wrap;gap:10px}
@@ -45,17 +44,21 @@
 .quote-planner-label{display:block;margin:0 0 8px;color:#7c5f55;font-size:10px;font-weight:1000;letter-spacing:1.4px;text-transform:uppercase}
 .quote-extras{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .dd-real-food{position:relative}
-.dd-top-gallery{padding-top:76px;background:linear-gradient(180deg,#fff6e7,#fffdf8)}
-.dd-top-gallery .dd-head{text-align:center;max-width:850px;margin-left:auto;margin-right:auto}
-.dd-top-gallery .dd-kitchen-grid{margin-top:34px}
-.dd-kitchen-grid{gap:16px;grid-auto-flow:dense}
+.dd-top-gallery{padding:58px 0 72px;background:linear-gradient(180deg,#fff6e7,#fffdf8)}
+.dd-top-gallery .dd-head{text-align:center;max-width:850px;margin:0 auto 30px}
+.dd-top-gallery .dd-kitchen-grid{margin-top:26px}
+.dd-kitchen-grid{gap:14px;grid-auto-flow:dense}
 .dd-kitchen-card{border:1px solid #ffffff75;box-shadow:0 20px 55px #571c1020;isolation:isolate}
-.dd-kitchen-card.dd-hero-food{grid-column:span 2;grid-row:span 2;min-height:460px}
+.dd-kitchen-card.dd-hero-food{grid-column:span 2;grid-row:span 2;min-height:430px}
 .dd-kitchen-card.dd-wide-food{grid-column:span 2}
+.dd-kitchen-card.dd-extra-photo{display:none}
+.dd-gallery-expanded .dd-kitchen-card.dd-extra-photo{display:block}
 .dd-kitchen-card img{transform:scale(1.001);transition:transform .45s ease,filter .3s ease}
 .dd-kitchen-card:hover img{transform:scale(1.04);filter:saturate(1.04)}
 .dd-kitchen-card figcaption{padding:7px 9px;border-radius:9px;background:#14060370;backdrop-filter:blur(7px);width:max-content;max-width:calc(100% - 32px)}
 .dd-kitchen-card:after{inset:38% 0 0;background:linear-gradient(transparent,#180502e8)}
+.dd-gallery-toggle{display:flex;align-items:center;justify-content:center;min-height:52px;margin:24px auto 0;padding:0 22px;border:1px solid #d7bea4;border-radius:999px;background:#fff;color:#7a2817;font:inherit;font-weight:900;cursor:pointer;box-shadow:0 12px 28px #6b2c1010}
+.dd-gallery-toggle:hover{transform:translateY(-1px);box-shadow:0 16px 34px #6b2c1018}
 .chef-experience{padding:86px 0;color:white;background:linear-gradient(135deg,#210702,#5a160d 62%,#7d2213)}
 .chef-experience-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
 .chef-experience .kicker{color:#ffc83d}
@@ -69,5 +72,5 @@
 .mobile a:first-child{background:var(--gold)!important;color:var(--ink)!important;border-color:transparent}
 .mobile a.mobile-quote{background:var(--red)!important;color:#fff!important;border-color:transparent}
 .local-seo-grid a{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
-@media(max-width:850px){.hero,.hero-inner{min-height:760px}.hero-copy{padding-top:105px}.quote-grid{gap:38px}.dd-kitchen-card.dd-hero-food{grid-column:span 2;min-height:400px}.dd-kitchen-card.dd-wide-food{grid-column:span 1}.review-box{padding:34px}.chef-experience-grid{grid-template-columns:1fr;gap:32px}}
-@media(max-width:560px){body{padding-bottom:74px}.hero,.hero-inner{min-height:720px}.hero-copy{padding-top:110px}.hero h1{font-size:52px;letter-spacing:-3.5px}.hero .lead{font-size:15px}.hero .actions{grid-template-columns:1fr 1fr}.hero .btn{padding:0 15px;font-size:13px}.hero-trust{gap:6px}.hero-trust span{font-size:9px}.quote-extras{grid-template-columns:1fr}.quote .form{padding:22px}.dd-kitchen-card.dd-hero-food{grid-column:span 2;grid-row:span 2;min-height:330px}.dd-kitchen-card.dd-wide-food{grid-column:span 2}.mobile a{font-size:12px!important}.review-box{padding:26px}.dd-top-gallery{padding-top:54px}.chef-experience{padding:62px 0}.chef-experience-copy p{font-size:15px}}
+@media(max-width:850px){.hero,.hero-inner{min-height:740px}.hero-copy{padding-top:100px}.quote-grid{gap:38px}.dd-kitchen-card.dd-hero-food{grid-column:span 2;min-height:380px}.dd-kitchen-card.dd-wide-food{grid-column:span 1}.review-box{padding:34px}.chef-experience-grid{grid-template-columns:1fr;gap:32px}}
+@media(max-width:560px){body{padding-bottom:74px}.hero,.hero-inner{min-height:680px}.hero-copy{padding-top:94px}.hero-logo{width:min(250px,70vw)}.hero h1{font-size:46px;letter-spacing:-3px;margin:16px 0 13px}.hero .lead{font-size:14px;line-height:1.55}.hero .actions{grid-template-columns:1fr 1fr;margin-top:20px}.hero .btn{min-height:50px;padding:0 12px;font-size:12px}.hero .number{margin-top:12px}.hero-trust{gap:5px;margin-top:12px}.hero-trust span{font-size:8px;padding:6px 8px}.quote-extras{grid-template-columns:1fr}.quote .form{padding:22px}.dd-top-gallery{padding:40px 0 54px}.dd-top-gallery .dd-head{margin-bottom:20px}.dd-kitchen-grid{gap:9px;grid-auto-rows:160px}.dd-kitchen-card.dd-hero-food{grid-column:span 2;grid-row:span 2;min-height:0}.dd-kitchen-card.dd-wide-food{grid-column:span 2}.mobile a{font-size:12px!important}.review-box{padding:26px}.chef-experience{padding:60px 0}.chef-experience-copy p{font-size:15px}}
