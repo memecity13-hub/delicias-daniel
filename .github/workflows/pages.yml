@@ -67,6 +67,35 @@ jobs:
           page.write_text(html, encoding="utf-8")
           PY
 
+      - name: Remove public price display
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          page = Path("index.html")
+          html = page.read_text(encoding="utf-8")
+          html = re.sub(r'from\s*\$[\d,.]+', 'Call for quote', html, flags=re.I)
+          html = re.sub(r'\$[\d,.]+(?:\s*[-–]\s*\$?[\d,.]+)?', 'Call for quote', html)
+          replacements = {
+              'Clear starting prices.': 'Custom quotes for every order.',
+              'clear starting prices': 'custom quotes for every order',
+              'Starting-price policy:': 'Custom-order quote policy:',
+              'starting prices': 'custom quotes',
+              'Starting prices': 'Custom quotes',
+              'pickup pricing': 'pickup details',
+              'Pickup pricing': 'Pickup details',
+              'final pricing': 'final quote',
+              'Final pricing': 'Final quote',
+              'Prices shown': 'Menu details shown',
+              'prices shown': 'menu details shown',
+              'latest tray prices': 'latest tray options'
+          }
+          for old, new in replacements.items():
+              html = html.replace(old, new)
+          page.write_text(html, encoding="utf-8")
+          PY
+
       - name: Add site upgrades
         run: |
           python3 - <<'PY'
