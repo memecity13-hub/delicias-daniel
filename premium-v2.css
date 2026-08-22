@@ -23,6 +23,7 @@
 .package:before{content:"";position:absolute;inset:-45% auto auto -25%;width:210px;height:210px;border-radius:50%;background:#ffffff0c;filter:blur(2px)}
 .package.featured{border:1px solid #de9e12}
 .package a{min-height:50px}
+.quote-only-price{font-size:14px!important;line-height:1.25;color:#bd2d18!important;font-weight:1000;text-transform:uppercase;letter-spacing:.5px}
 .reviews{gap:55px}
 .review-box{position:relative;overflow:hidden;box-shadow:var(--dd-shadow);background:linear-gradient(145deg,#fffdf8,#fff5e7)}
 .review-box:before{content:"GOOGLE BUSINESS PROFILE";display:inline-flex;padding:7px 10px;border-radius:999px;background:#fff;color:#8d2e1a;border:1px solid var(--dd-border);font-size:10px;font-weight:1000;letter-spacing:1.2px}
@@ -44,6 +45,9 @@
 .quote-planner-label{display:block;margin:0 0 8px;color:#7c5f55;font-size:10px;font-weight:1000;letter-spacing:1.4px;text-transform:uppercase}
 .quote-extras{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .dd-real-food{position:relative}
+.dd-top-gallery{padding-top:76px;background:linear-gradient(180deg,#fff6e7,#fffdf8)}
+.dd-top-gallery .dd-head{text-align:center;max-width:850px;margin-left:auto;margin-right:auto}
+.dd-top-gallery .dd-kitchen-grid{margin-top:34px}
 .dd-kitchen-grid{gap:16px;grid-auto-flow:dense}
 .dd-kitchen-card{border:1px solid #ffffff75;box-shadow:0 20px 55px #571c1020;isolation:isolate}
 .dd-kitchen-card.dd-hero-food{grid-column:span 2;grid-row:span 2;min-height:460px}
@@ -52,10 +56,18 @@
 .dd-kitchen-card:hover img{transform:scale(1.04);filter:saturate(1.04)}
 .dd-kitchen-card figcaption{padding:7px 9px;border-radius:9px;background:#14060370;backdrop-filter:blur(7px);width:max-content;max-width:calc(100% - 32px)}
 .dd-kitchen-card:after{inset:38% 0 0;background:linear-gradient(transparent,#180502e8)}
+.chef-experience{padding:86px 0;color:white;background:linear-gradient(135deg,#210702,#5a160d 62%,#7d2213)}
+.chef-experience-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:center}
+.chef-experience .kicker{color:#ffc83d}
+.chef-experience h2{color:#fff;max-width:600px}
+.chef-experience-copy p{margin:0;color:#ffffffc4;font-size:17px;line-height:1.8}
+.chef-badges{display:flex;flex-wrap:wrap;gap:9px;margin:25px 0}
+.chef-badges span{padding:9px 12px;border:1px solid #ffffff26;border-radius:999px;background:#ffffff0d;color:#fff9df;font-size:11px;font-weight:900}
+.chef-experience .btn{background:#ffc83d;color:#30140d}
 .mobile{grid-template-columns:1fr 1fr 1fr!important;gap:7px!important;padding:8px 10px!important;background:#160603ed!important;backdrop-filter:blur(16px);border-top:1px solid #ffffff1b}
 .mobile a{height:50px!important;border-radius:999px!important;background:#ffffff10!important;border:1px solid #ffffff16}
 .mobile a:first-child{background:var(--gold)!important;color:var(--ink)!important;border-color:transparent}
 .mobile a.mobile-quote{background:var(--red)!important;color:#fff!important;border-color:transparent}
 .local-seo-grid a{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
-@media(max-width:850px){.hero,.hero-inner{min-height:760px}.hero-copy{padding-top:105px}.quote-grid{gap:38px}.dd-kitchen-card.dd-hero-food{grid-column:span 2;min-height:400px}.dd-kitchen-card.dd-wide-food{grid-column:span 1}.review-box{padding:34px}}
-@media(max-width:560px){body{padding-bottom:74px}.hero,.hero-inner{min-height:720px}.hero-copy{padding-top:110px}.hero h1{font-size:52px;letter-spacing:-3.5px}.hero .lead{font-size:15px}.hero .actions{grid-template-columns:1fr 1fr}.hero .btn{padding:0 15px;font-size:13px}.hero-trust{gap:6px}.hero-trust span{font-size:9px}.quote-extras{grid-template-columns:1fr}.quote .form{padding:22px}.dd-kitchen-card.dd-hero-food{grid-column:span 2;grid-row:span 2;min-height:330px}.dd-kitchen-card.dd-wide-food{grid-column:span 2}.mobile a{font-size:12px!important}.review-box{padding:26px}}
+@media(max-width:850px){.hero,.hero-inner{min-height:760px}.hero-copy{padding-top:105px}.quote-grid{gap:38px}.dd-kitchen-card.dd-hero-food{grid-column:span 2;min-height:400px}.dd-kitchen-card.dd-wide-food{grid-column:span 1}.review-box{padding:34px}.chef-experience-grid{grid-template-columns:1fr;gap:32px}}
+@media(max-width:560px){body{padding-bottom:74px}.hero,.hero-inner{min-height:720px}.hero-copy{padding-top:110px}.hero h1{font-size:52px;letter-spacing:-3.5px}.hero .lead{font-size:15px}.hero .actions{grid-template-columns:1fr 1fr}.hero .btn{padding:0 15px;font-size:13px}.hero-trust{gap:6px}.hero-trust span{font-size:9px}.quote-extras{grid-template-columns:1fr}.quote .form{padding:22px}.dd-kitchen-card.dd-hero-food{grid-column:span 2;grid-row:span 2;min-height:330px}.dd-kitchen-card.dd-wide-food{grid-column:span 2}.mobile a{font-size:12px!important}.review-box{padding:26px}.dd-top-gallery{padding-top:54px}.chef-experience{padding:62px 0}.chef-experience-copy p{font-size:15px}}
